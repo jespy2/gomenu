@@ -48,7 +48,7 @@ export const Home = () => {
           <h2>Instructions</h2>
           <pre>{recipe.recipeInstructions.map((instruction: any) =>  <div>{JSON.stringify(instruction.text)}</div>)}</pre>
         <h2>Picture</h2>
-        <img src={JSON.stringify(recipe?.image[0])} alt='recipe'/>
+        <img src={recipe?.image[0]} alt='recipe'/>
           <pre>{JSON.stringify(recipe.image[0])}</pre>
           <h2>Serves</h2>
           <pre>{JSON.stringify(recipe.recipeYield)}</pre>

@@ -1,3 +1,5 @@
+import { ObjectId } from "mongodb";
+
 interface INutrition {
 	"@type": "NutritionInformation";
 	calories?: string;
@@ -53,10 +55,10 @@ enum CookingMethod {
 }
 
 export default interface IRecipe extends IRecipeFromLDJSON {	
+  _id: ObjectId;
 	userName: string;
 	selectedImage?: string;
 	cookingMethod?: CookingMethod[];
 	userRating?: number;
 	userComments?: string;
-
 }

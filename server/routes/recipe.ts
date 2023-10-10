@@ -1,4 +1,4 @@
-import { Router } from "express";
+import express, { Router } from "express";
 
 import {
   getRecipes,
@@ -7,11 +7,10 @@ import {
   deleteRecipe
 } from "../controllers/recipeController";
 
-export const router = Router();
+export const recipeRouter = Router();
+recipeRouter.use(express.json());
 
-router.get('/', getRecipes);
-router.post('/', createRecipe);
-router.put('/:id', updateRecipe);
-router.delete('/:id', deleteRecipe);
-
-module.exports = router;
+recipeRouter.get('/', getRecipes);
+recipeRouter.post('/', createRecipe);
+recipeRouter.put('/:id', updateRecipe);
+recipeRouter.delete('/:id', deleteRecipe);

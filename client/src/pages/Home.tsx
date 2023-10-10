@@ -28,8 +28,8 @@ export const Home = () => {
       .then(data => {
         const _recipe = {...data.data}['@graph'].find((recipe: any) => recipe['@type'] === 'Recipe');
         setRecipe(_recipe)
-        console.log(data)
-        console.log(_recipe)
+        console.log('data: ', data)
+        console.log('_recipe: ', _recipe)
       })
     })()
   }, [userURL])
@@ -41,8 +41,10 @@ export const Home = () => {
       <URLSearch setUserURL={setUserURL} />
       {recipe &&
         <>
-          <h2>Recipe</h2>
-          <pre>{JSON.stringify(recipe.name)}</pre>
+        <h2>Recipe</h2>
+        <pre>{JSON.stringify(recipe.name)}</pre>
+          <h2>Description</h2>
+          <pre>{JSON.stringify(recipe.description)}</pre>
           <h2>Ingredients</h2>
           <pre>{recipe.recipeIngredient.map((ingredient: any) =>  <div>{ingredient}</div>)}</pre>
           <h2>Instructions</h2>

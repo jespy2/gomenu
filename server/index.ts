@@ -2,28 +2,46 @@ import express, { Request, Response } from 'express';
 import xray from 'x-ray'
 import cors from 'cors';
 
+import { connectToDatabase } from './services/database.services';
+import DB from './db';
+import { router } from './routes/recipe';
+
 const app = express();
 app.use(cors());
+app.use(express.json())
 const x = xray();
+
 const port = process.env.PORT || 8000;
 
-// app.get('/testScrape', (req: Request, res: Response) => {
-//   x(testURL, `script[type='application/ld+json']`)(function (err, ld_json) {
+// app.get('/api/', (req: Request, res: Response) => {
+//   const _url = req.query.user_url
+//   x(_url as string, `script[type='application/ld+json']`)(function (err, ld_json) {
 //     res.send(ld_json)
 //   });
-//   // res.send('Hello, TypeScript Express!');
-//   // stream.pipe(res)
+// })
+
+connectToDatabase()
+    .then(() => {
+        app.use("/api/recipes", router);
+
+        app.listen(port, () => {
+            console.log(`Server started at http://localhost:${port}`);
+        });
+    })
+    .catch((error: Error) => {
+        console.error("Database connection failed", error);
+        process.exit();
+    });
+
+
+
+
+// DB.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+
+
+// app.use('/api/recipes', router);
+
+// app.listen(port, () => {
+//   console.log(`Server running at http://localhost:${port}`);
 // });
-
-app.get('/api/', (req: Request, res: Response) => {
-  const _url = req.query.user_url
-  x(_url as string, `script[type='application/ld+json']`)(function (err, ld_json) {
-    // res.send(_url)
-    res.send(ld_json)
-  })
-  // res.send(req.query.user_url)
-})
-
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});

@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 
-interface INutrition {
+export interface INutrition {
 	"@type": "NutritionInformation";
 	calories?: string;
 	carbohydrateContent?: string;
@@ -45,7 +45,7 @@ interface IRecipeFromLDJSON {
 	recipeInstructions: IInstructionStep[] | IInstructionSection[] 
 }
 
-enum CookingMethod {
+export enum CookingMethod {
 	instantpot = "Instant Pot",
 	stove = "Stove",
 	oven = "Oven",
@@ -54,7 +54,7 @@ enum CookingMethod {
 	none = "None"
 }
 
-export default interface IRecipe extends IRecipeFromLDJSON {	
+export interface IRecipe extends IRecipeFromLDJSON {	
   _id: ObjectId;
 	userName: string;
 	selectedImage?: string;

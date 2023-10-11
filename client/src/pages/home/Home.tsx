@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 
 import { Navbar } from "../../components/navbar/Navbar";
-import { MainDisplay } from "../../components/main_display/MainDisplay";
+import { MainDisplay } from "../../components/main-display/MainDisplay";
 
 import apis from "../../api";
-import IRecipe from "../../index.types";
+import { IRecipe } from '../../index.types';
 import styles from "./Home.module.scss";
 
 export const Home = () => {

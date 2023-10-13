@@ -31,7 +31,8 @@ export const RecipeCard = (props: IProps) => {
           {JSON.stringify(recipeYield)}
           <h2>Nutrition Facts</h2>
           {JSON.stringify(nutrition)}
-        </div>
+      </div>
+      <button>this will be a link to the original recipe site</button>
     </div>
   )
 };

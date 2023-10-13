@@ -16,14 +16,14 @@ export interface INutrition {
 	unsaturatedFatContent?: string;
 }
 
-interface IInstructionStep{
+export interface IInstructionStep{
 	"@type": "HowToStep";
 	name?: string;
 	text?: string;
 	url?: string;
 }
 
-interface IInstructionSection{
+export interface IInstructionSection{
 	"@type"?:  "HowToSection";
 	itemListElement: IInstructionStep[]
 }    

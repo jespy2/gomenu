@@ -1,8 +1,9 @@
 import React from 'react';
-import { useFormik } from 'formik';
+import { FieldArray, useFormik } from 'formik';
 
 import { ObjectId } from 'mongodb';
-import { IRecipe, INutrition,  CookingMethod } from '../../index.types';
+import { IRecipe, INutrition, CookingMethod, IInstructionStep } from '../../index.types';
+import { jsonldConvertor } from '../../utils/utils'
 
 import styles from './RecipeForm.module.scss';
 
@@ -46,10 +47,34 @@ export const RecipeForm = (props: IProps) => {
     ? recipe.image
     : undefined;
 
+  const typedNutrtion = formik.values.nutrition as INutrition
+  const nutritionKeys = Object.keys(typedNutrtion)
+
+  const typedInstructions = formik.values.recipeInstructions as IInstructionStep[]
+
   return (
     <div className={styles.recipeFormContainer}>
     <h2>{ recipe?.name }</h2>
       <form onSubmit={formik.handleSubmit}>
+
+        <div className={styles.recipeFormSection}>
+          <h3>Nutrition</h3>
+          <>
+            {
+              nutritionKeys.map((key) => { 
+                console.log('key: ', key)
+                console.log('value: ', typedNutrtion[key as keyof INutrition])
+                return (
+                  <div key={key}>
+                    <label htmlFor={typedNutrtion[key as keyof INutrition]} className={styles.inputLabel}>{key}</label>
+                    <input id={typedNutrtion[key as keyof INutrition]} name={typedNutrtion[key as keyof INutrition]} type='text' onChange={formik.handleChange} value={typedNutrtion[key as keyof INutrition]} />
+                  </div>
+                )
+              })  
+            }
+          </>
+        </div>
+        
         <div className={styles.recipeFormSection}>
           <label htmlFor='id' className={styles.inputLabel}>ID</label>
           <input id='id' name='id' type='text' onChange={formik.handleChange} value={formik.values._id as string} />
@@ -145,11 +170,6 @@ export const RecipeForm = (props: IProps) => {
         </div>
 
         <div className={styles.recipeFormSection}>
-          <label htmlFor='nutrition' className={styles.inputLabel}>Nutrition</label>
-          <input id='nutrition' name='nutrition' type='text' onChange={formik.handleChange} value={formik.values.nutrition as string} />
-        </div>
-
-        <div className={styles.recipeFormSection}>
           <label htmlFor='prepTime' className={styles.inputLabel}>Prep Time</label>
           <input id='prepTime' name='prepTime' type='text' onChange={formik.handleChange} value={formik.values.prepTime} />
           
@@ -165,23 +185,69 @@ export const RecipeForm = (props: IProps) => {
         </div>
 
         <div className={styles.recipeFormSection}>
-          <label htmlFor='recipeCategory' className={styles.inputLabel}>Recipe Category</label>
-          <input id='recipeCategory' name='recipeCategory' type='text' onChange={formik.handleChange} value={formik.values.recipeCategory} />
+          <h2>Organize</h2>
+          <h3>Category</h3>
+          <FieldArray
+            name="recipeCategory"
+            render={arrayHelpers => (
+              <>
+                {Array.isArray(formik.values.recipeCategory) && formik.values.recipeCategory?.map((category, idx) => (
+                  <div key={idx}>
+                    <label htmlFor={`category.$(idx)`} className={styles.inputLabel}>{idx + 1}</label>
+                    <input id={`category.$(idx)`} name={`category.$(idx)`} type='text' onChange={formik.handleChange} value={category} />
+                  </div>
+                ))}
+              </>
+            )}
+          />
+          
+          <h3>Cuisine</h3>
+          <FieldArray
+            name="recipeCuisine"
+            render={arrayHelpers => (
+              <>
+                {Array.isArray(formik.values.recipeCuisine) && formik.values.recipeCuisine?.map((cuisine, idx) => (
+                  <div key={idx}>
+                    <label htmlFor={`cuisine.$(idx)`} className={styles.inputLabel}>{idx + 1}</label>
+                    <input id={`cuisine.$(idx)`} name={`cuisine.$(idx)`} type='text' onChange={formik.handleChange} value={cuisine} />
+                  </div>
+                ))}
+              </>
+            )}
+          />
         </div>
 
         <div className={styles.recipeFormSection}>
-          <label htmlFor='recipeCuisine' className={styles.inputLabel}>Recipe Cuisine</label>
-          <input id='recipeCuisine' name='recipeCuisine' type='text' onChange={formik.handleChange} value={formik.values.recipeCuisine} />
+          <h2>Ingredients</h2>
+          <FieldArray
+            name="recipeIngredient"
+            render={arrayHelpers => (
+              <>
+                {formik.values.recipeIngredient?.map((ingredient, idx) => (
+                  <div key={idx}>
+                    <label htmlFor={`ingredient.$(idx)`} className={styles.inputLabel}>{idx + 1}</label>
+                    <input id={`ingredient.$(idx)`} name={`ingredient.$(idx)`} type='text' onChange={formik.handleChange} value={ingredient} />
+                  </div>
+                ))}
+              </>
+            )}
+          />
         </div>
 
         <div className={styles.recipeFormSection}>
-          <label htmlFor='recipeIngredient' className={styles.inputLabel}>Recipe Ingredient</label>
-          <input id='recipeIngredient' name='recipeIngredient' type='text' onChange={formik.handleChange} value={formik.values.recipeIngredient} />
-        </div>
-
-        <div className={styles.recipeFormSection}>
-          <label htmlFor='recipeInstructions' className={styles.inputLabel}>Recipe Instructions</label>
-          <input id='recipeInstructions' name='recipeInstructions' type='text' onChange={formik.handleChange} value={formik.values.recipeInstructions as string} />
+          <FieldArray
+            name="recipeInstructions"
+            render={arrayHelpers => (
+              <>
+                {typedInstructions.map((step, idx) => (
+                  <div key={idx}>
+                    <label htmlFor={step.text} className={styles.inputLabel}>{idx + 1}</label>
+                    <input id={step.text} name={`ingredient.$(idx)`} type='text' onChange={formik.handleChange} value={step.text} />
+                  </div>
+                ))}
+              </>
+            )}
+          />          
         </div>
       </form>
     </div>

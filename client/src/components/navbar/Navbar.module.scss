@@ -1,9 +1,29 @@
+@import '../../styles/variables';
+
 .navbarContainer {
   display: flex;
   flex-direction: column;
   height: 100vh;
   width: 20%;
-  background-color: #fff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 
               0 1px 2px rgba(0, 0, 0, 0.24);
+
+  .navbarHeader {
+    width: 100%;
+    height: 30vh;
+    background-color: $yellow;
+    padding: $spacing-2;
+
+    .navbarLogo {
+      padding: $spacing-3;
+      width: 90%;
+    }
+  }
+
+  .navbarBody {
+    width: 100%;
+    height: 70vh;
+    background-color: $gm-blue;
+    padding: $spacing-2
+  }
 }

@@ -8,7 +8,12 @@ export const Navbar = (
 ) => {
   return (
     <div className={styles.navbarContainer}>
-      <URLSearch setUserURL={setUserURL} />
+      <div className={styles.navbarHeader}>
+        <img src="/gomenu-logo.svg" alt="gomenu Logo" className={styles.navbarLogo} />
+      </div>
+      <div className={styles.navbarBody}>
+        <URLSearch setUserURL={setUserURL}  />
+      </div>
     </div>
   )
 }

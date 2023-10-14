@@ -14,12 +14,14 @@ export const MainDisplay = (props: IProps): JSX.Element => {
   return (
     <div className={styles.mainDisplayContainer}>
       <h1>Username's Cookbook</h1>
-      {props.recipe &&
-        <RecipeForm recipe={props.recipe} />
-      }
-      {props.recipe &&         
-      <RecipeThumbnail recipe={props.recipe} />
-      }
+      <div className={styles.mainDisplay}>
+        {props.recipe &&
+          <RecipeForm recipe={props.recipe} />
+        }
+        {props.recipe &&         
+        <RecipeThumbnail recipe={props.recipe} />
+        }
+      </div>
     </div>
   )
 }

@@ -1,12 +1,23 @@
+@import '../../styles/variables';
+
 .mainDisplayContainer {
+    background-color: $gm-brown;
     display: flex;
     flex-direction: column;
     width: 80%;
-    padding: 20px;
+    padding: $spacing-3;
+    height: 100vm;
 
     h1 {
         font-size: 2rem;
-        margin-bottom: 20px;
+        color: $yellow;
+        margin-bottom: $spacing-3;
         text-align: center;
+    }
+
+    .mainDisplay {
+        background-color: $light-gray;
+        width: 100%;
+        overflow-y: scroll;
     }
 }

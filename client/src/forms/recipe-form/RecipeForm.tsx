@@ -1,10 +1,10 @@
 import React,  { useState } from 'react';
-import { Formik, Form, Field, useField, FieldHookConfig, FieldInputProps } from 'formik';
+import { Formik, Form, Field, useField, FieldHookConfig, FieldArray } from 'formik';
 import * as Yup from 'yup';
 
 import { Dish } from '../../components/ratings/Dish';
 import styles from './RecipeForm.module.scss';
-import { IRecipe, CookingMethod, INutrition } from '../../index.types';
+import { IRecipe, CookingMethod, INutrition, IInstructionStep } from '../../index.types';
 
 interface IOtherProps {
   label: string;
@@ -38,6 +38,44 @@ const TextBox = ({ label, ...props }: IOtherProps & FieldHookConfig<string>) => 
         : null
       }
     </>
+  )
+}
+
+const FieldFromArray = (props: FieldHookConfig<string>) => {
+  const [field, meta] = useField(props);
+  return (
+    <FieldArray
+      name={field.name}
+      render={arrayHelpers => (
+        <>
+          {Array.isArray(field.value) && field.value.map((inputItem, idx) => (
+            <div key={idx}>
+              <label htmlFor={`inputItem.$(idx)`} className={styles.inputLabel}>{idx + 1}</label>
+              <input id={`inputItem.$(idx)`} name={`inputItem.$(idx)`} type='text' onChange={field.onChange} value={inputItem} />
+            </div>
+          ))}
+        </>
+      )}
+    />
+  )
+}
+
+const FieldsFromInstructions = (props: FieldHookConfig<string>) => {
+  const [field, meta] = useField(props);
+  return (
+    <FieldArray
+      name={field.name}
+      render={arrayHelpers => (
+        <>
+          {Array.isArray(field.value) && field.value.map((step, idx) => (
+            <div key={idx}>
+              <label htmlFor={step.txt} className={styles.inputLabel}>{idx + 1}</label>
+              <input id={`step.text`} name={`step.$(idx)`} type='text' onChange={field.onChange} value={step.text} />
+            </div>
+          ))}
+        </>
+      )}
+    />
   )
 }
   
@@ -141,12 +179,12 @@ export const RecipeForm = (props: IProps) => {
               Object.keys(newRecipe.nutrition).map((key) => { 
                 return key !== '@type' && 
                   <>
-                      <TextInput
+                    <TextInput
                       label={key}
                       name={key}
                       type='text'
                       value={newRecipe.nutrition && newRecipe.nutrition[key as keyof INutrition]}
-                      />
+                    />
                   </>
               })  
             }
@@ -170,6 +208,86 @@ export const RecipeForm = (props: IProps) => {
           {/* RATING */}
           <div className={styles.recipeFormSection}>             
             <RatingInput name='userRating'/>
+          </div>
+
+          {/* USER COMMENTS */}          
+          <div className={styles.recipeFormSection}>             
+            <TextBox
+              label='userComments'
+              name='userComments'
+              type='text'
+              placeholder='Comments'
+            />
+          </div>
+
+          {/* DESCRIPTION */}       
+          <div className={styles.recipeFormSection}>             
+            <TextBox
+              label='description'
+              name='description'
+              type='text'
+            />
+          </div>
+          
+
+          {/* PREP TIME */}       
+          <div className={styles.recipeFormSection}>             
+            <TextInput
+              label='prepTime'
+              name='prepTime'
+              type='text'
+            />
+          </div>
+          
+            
+          {/* COOK TIME */}   
+          <div className={styles.recipeFormSection}>             
+            <TextInput
+              label='cookTime'
+              name='cookTime'
+              type='text'
+            />
+          </div>
+        
+          {/* YIELD */}   
+          <div className={styles.recipeFormSection}>             
+            <TextInput
+              label='recipeYield'
+              name='recipeYield'
+              type='text'
+            />
+          </div>
+        
+          {/* CATEGORY */}
+          <h3>Category</h3>
+          <div className={styles.recipeFormSection}>             
+            <FieldFromArray
+              name="recipeCategory"
+            />
+          </div>
+          
+          {/* CUISINE */}
+          <h3>Cuisine</h3>
+          <div className={styles.recipeFormSection}>             
+            <FieldFromArray
+              name="recipeCuisine"
+            />
+          </div>
+            
+          {/* INGREDIENTS */}
+          <h3>Ingredients</h3>
+          <div className={styles.recipeFormSection}>               
+            <FieldFromArray
+              name="recipeIngredient"
+            />
+          </div>
+            
+          {/* INSTRUCTIONS */}
+          <h3>Instructions</h3>
+          <div className={styles.recipeFormSection}>               
+            <FieldsFromInstructions
+              name='recipeInstructions'
+            />
           </div>
 
 

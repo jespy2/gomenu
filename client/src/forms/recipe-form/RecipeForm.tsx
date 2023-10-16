@@ -1,136 +1,22 @@
 import React,  { useState } from 'react';
-import { Formik, Form, Field, useField, FieldHookConfig, FieldArray } from 'formik';
+import { Formik, Form, Field} from 'formik';
 import * as Yup from 'yup';
 
-import { Dish } from '../../components/ratings/Dish';
+import {
+  TextBox,
+  TextInput,
+  RatingInput,
+  FieldFromArray,
+  FieldsFromInstructions,
+  initVals,
+  cookingmethods,
+  IProps
+} from './RecipeForm.conf';
+import { IRecipe, CookingMethod } from '../../index.types';
+
 import styles from './RecipeForm.module.scss';
-import { IRecipe, CookingMethod, INutrition, IInstructionStep } from '../../index.types';
-
-interface IOtherProps {
-  label: string;
-}
 
 
-const TextInput = ({ label, ...props }: IOtherProps & FieldHookConfig<string>) => {
-  const [field, meta] = useField(props);
-  return (
-    <>
-      <label htmlFor={props.id || props.name}>{label}</label>
-      <Field className={styles.textInput} {...field} {...props} />
-      {
-      meta.touched && meta.error
-        ? (<div className={styles.formError}>{meta.error}</div>)
-        : null
-      }
-    </>
-  )
-}
-
-const TextBox = ({ label, ...props }: IOtherProps & FieldHookConfig<string>) => {
-  const [field, meta] = useField(props);
-  return (
-    <>
-      <label htmlFor={props.id || props.name}>{label}</label>
-      <Field className={styles.textBox} {...field} {...props} />
-      {
-      meta.touched && meta.error
-        ? (<div className={styles.formError}>{meta.error}</div>)
-        : null
-      }
-    </>
-  )
-}
-
-const FieldFromArray = (props: FieldHookConfig<string>) => {
-  const [field, meta] = useField(props);
-  return (
-    <FieldArray
-      name={field.name}
-      render={arrayHelpers => (
-        <>
-          {Array.isArray(field.value) && field.value.map((inputItem, idx) => (
-            <div key={idx}>
-              <label htmlFor={`inputItem.$(idx)`} className={styles.inputLabel}>{idx + 1}</label>
-              <input id={`inputItem.$(idx)`} name={`inputItem.$(idx)`} type='text' onChange={field.onChange} value={inputItem} />
-            </div>
-          ))}
-        </>
-      )}
-    />
-  )
-}
-
-const FieldsFromInstructions = (props: FieldHookConfig<string>) => {
-  const [field, meta] = useField(props);
-  return (
-    <FieldArray
-      name={field.name}
-      render={arrayHelpers => (
-        <>
-          {Array.isArray(field.value) && field.value.map((step, idx) => (
-            <div key={idx}>
-              <label htmlFor={step.txt} className={styles.inputLabel}>{idx + 1}</label>
-              <input id={`step.text`} name={`step.$(idx)`} type='text' onChange={field.onChange} value={step.text} />
-            </div>
-          ))}
-        </>
-      )}
-    />
-  )
-}
-  
-const RatingInput = ( (props: FieldHookConfig<string>) => {
-  const [field, meta] = useField(props);
-  let component = [];
-  const currValue = parseInt(field.value)
-  for (let i = 1; i <= 5; i++){
-      const _id = i.toString();
-      component.push(
-        <label id={_id}>
-          <Field className={styles.ratingsForm} type='radio'  {...props} value={i} />
-          <Dish idx={i} currValue={currValue} />
-        </label>
-      )
-    }
-  return (    
-    <>
-      <div id='userRating' className={styles.inputLabel}>Rating</div> 
-      <div className={styles.radioGroup} role='group' aria-labelledby='userRating'>
-        {component}
-      </div>  
-    </>
-  )
-})
-
-const initVals = {
-  _id: '',
-  userName: '',
-  selectedImage: '',
-  cookingMethod: CookingMethod.none,
-  userRating: 0,
-  userComments: '',
-  schemaType: 'Recipe',
-  recipeID: '',
-  image: '',
-  name: '',
-  description: '',
-  nutrition: '',
-  prepTime: '',
-  cookTime: '',
-  totalTime: '',
-  recipeYield: '',
-  recipeCategory: '',
-  recipeCuisine: '',
-  recipeIngredient: [''],
-    recipeInstructions: ''
-};
-
-const cookingmethods = Object.keys(CookingMethod)
-
-
-type IProps = {
-  recipe: IRecipe | undefined
-}
 
 
 export const RecipeForm = (props: IProps) => {
@@ -160,36 +46,39 @@ export const RecipeForm = (props: IProps) => {
 
   return (
     <div className={styles.recipeFormContainer}>
-      <h2>{ recipe?.name }</h2>
+      <h2>{recipe?.name}</h2>
+      <img src={newRecipe?.selectedImage} alt={recipe?.name} />
       <Formik
         initialValues={recipe ? newRecipe : initVals}
+        enableReinitialize={true}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
+            console.log(JSON.stringify(values, null, 2));
             setSubmitting(false);
           }, 400)
         }}
       >
+        {(Formik) => (
         <Form>
           {/*  NUTRITION */}
           <div className={styles.recipeFormSection}>
-          <h3>Nutrition</h3>
-          <>
-            { newRecipe.nutrition &&
-              Object.keys(newRecipe.nutrition).map((key) => { 
-                return key !== '@type' && 
-                  <>
-                    <TextInput
-                      label={key}
-                      name={key}
-                      type='text'
-                      value={newRecipe.nutrition && newRecipe.nutrition[key as keyof INutrition]}
-                    />
-                  </>
-              })  
-            }
-          </>
-          </div>
+              <h3>Nutrition</h3>              
+              <>
+                { newRecipe.nutrition &&
+                  Object.keys(newRecipe.nutrition).map((key) => { 
+                    return key !== '@type' && 
+                      <>
+                        <TextInput
+                          label={key}
+                          name={key}
+                          type='text'
+                          // value={newRecipe.nutrition && newRecipe.nutrition[key as keyof INutrition]}
+                        />
+                      </>
+                  })  
+                }
+              </>
+              </div>
 
           {/*  COOKING METHOD */}
           <div className={styles.recipeFormSection}>
@@ -207,7 +96,10 @@ export const RecipeForm = (props: IProps) => {
 
           {/* RATING */}
           <div className={styles.recipeFormSection}>             
-            <RatingInput name='userRating'/>
+              <RatingInput                
+              currValue={Formik.values.userRating ? Formik.values.userRating : 0}
+              name='userRating'
+            />
           </div>
 
           {/* USER COMMENTS */}          
@@ -293,7 +185,8 @@ export const RecipeForm = (props: IProps) => {
 
           {/*  SUBMIT  */}
           <button type='submit'>Submit</button>
-        </Form>
+          </Form>
+        )}
       </Formik>
     </div>
    )

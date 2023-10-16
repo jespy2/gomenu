@@ -6,7 +6,7 @@
     flex-direction: column;
     width: 80%;
     padding: $spacing-3;
-    height: 100vm;
+    height: 100vh;
 
     h1 {
         font-size: 2rem;
@@ -16,7 +16,7 @@
     }
 
     .mainDisplay {
-        background-color: $light-gray;
+        background-color: $off-white-2;
         width: 100%;
         overflow-y: scroll;
     }

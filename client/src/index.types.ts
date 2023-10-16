@@ -42,7 +42,7 @@ interface IRecipeFromLDJSON {
 	recipeCategory?: string | string[];
 	recipeCuisine?: string | string[];
 	recipeIngredient?: string[];
-	recipeInstructions: IInstructionStep[] | IInstructionSection[] 
+	recipeInstructions?: IInstructionStep[] | IInstructionSection[] 
 }
 
 export enum CookingMethod {
@@ -55,7 +55,7 @@ export enum CookingMethod {
 }
 
 export interface IRecipe extends IRecipeFromLDJSON {	
-  _id: ObjectId;
+  _id: string;
 	userName: string;
 	selectedImage?: string;
 	cookingMethod?: CookingMethod[];

@@ -21,7 +21,6 @@ export const Home = () => {
 	}
 
 	useEffect(() => {
-		recipe && console.log('intructions: ', instructionsConvertor(recipe.recipeInstructions))
 		recipe && console.log('intructions: ', recipe.recipeInstructions)
 		recipe && console.log('nutrion: ', jsonldConvertor(recipe, "nutrition"))
 		recipe && console.log('recipeCategory: ', jsonldConvertor(recipe, "recipeCategory"))

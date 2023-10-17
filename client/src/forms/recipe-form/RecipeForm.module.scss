@@ -20,7 +20,14 @@
   .recipeFormImage {
     width: 200px;
     border-radius: $border-radius;
+    transition: all 0.3s ease-in-out;
   }
+
+  .recipeFormImage:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #ccc;
+  }
+
   label {
     font-size: 1rem;
     margin-bottom: $spacing-3;

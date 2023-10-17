@@ -14,7 +14,7 @@ export const TextInput = ({ label, ...props }: IOtherProps & FieldHookConfig<str
   const [field, meta] = useField(props);
   return (
     <>
-      <label htmlFor={props.id || props.name}>{label}</label>
+      {/* <label htmlFor={props.id || props.name}>{label}</label> */}
       <Field className={styles.textInput} {...field} {...props} />
       {
       meta.touched && meta.error

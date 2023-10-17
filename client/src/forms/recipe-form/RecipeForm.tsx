@@ -130,13 +130,67 @@ export const RecipeForm = (props: IProps) => {
                 <FieldFromArray
                   name="recipeCuisine"
                 />
+
+                {/* PREP TIME */}  
+                <h3>Prep Time</h3>           
+                <TextInput
+                  label='prepTime'
+                  name='prepTime'
+                  type='text'
+                />
+              
+                
+                {/* COOK TIME */} 
+                <h3>Total Cook Time</h3>            
+                <TextInput
+                  label='cookTime'
+                  name='cookTime'
+                  type='text'
+                  />
+            
+                {/* YIELD */}  
+                <h3>Servings</h3>             
+                <TextInput
+                  label='recipeYield'
+                  name='recipeYield'
+                  type='text'
+                />
+
                 <button className={styles.paginationNavButton} onClick={() => setCurrStep(currStep - 1)}>Go Back</button>
                 <button className={styles.paginationNavButton} onClick={() => setCurrStep(currStep + 1)}>Continue</button>
-              </div>
-                
+              </div>                
             }
-            {/* ================ Step 3 ================ */}
-            {currStep === 2 &&
+
+            
+    {/* ================ Step 3 ================ */}
+    {currStep === 2 &&
+      <div className={styles.recipeFormSection}>
+        {/* INGREDIENTS */}    
+        <h3>Ingredients</h3>            
+        <FieldFromArray
+          name="recipeIngredient"
+          />
+                
+        <button className={styles.paginationNavButton} onClick={() => setCurrStep(currStep - 1)}>Go Back</button>
+      <button className={styles.paginationNavButton} onClick={() => setCurrStep(currStep + 1)}>Continue</button>
+      </div>
+    }
+          
+    {/* ================ Step 4 ================ */}
+    {currStep === 3 &&
+      <div className={styles.recipeFormSection}> 
+      {/* INSTRUCTIONS */}
+      <h3>Instructions</h3>              
+        <FieldsFromInstructions
+          name='recipeInstructions'
+        />
+                
+        <button className={styles.paginationNavButton} onClick={() => setCurrStep(currStep - 1)}>Go Back</button>
+      <button className={styles.paginationNavButton} onClick={() => setCurrStep(currStep + 1)}>Continue</button>
+      </div>
+    }
+        {/* ================ Step 5 ================ */}
+        {currStep === 4 &&
               < div className={styles.recipeFormSection}>
               <h2>{paginationSteps[currStep]}</h2>
               {/*  NUTRITION */ }
@@ -160,56 +214,16 @@ export const RecipeForm = (props: IProps) => {
               <button className={styles.paginationNavButton} onClick={() => setCurrStep(currStep + 1)}>Continue</button>
           </div>
     }
+  
           
 
           
-          
-
-          {/* PREP TIME */}       
-          <div className={styles.recipeFormSection}>             
-            <TextInput
-              label='prepTime'
-              name='prepTime'
-              type='text'
-            />
-          </div>
-          
-            
-          {/* COOK TIME */}   
-          <div className={styles.recipeFormSection}>             
-            <TextInput
-              label='cookTime'
-              name='cookTime'
-              type='text'
-            />
-          </div>
-        
-          {/* YIELD */}   
-          <div className={styles.recipeFormSection}>             
-            <TextInput
-              label='recipeYield'
-              name='recipeYield'
-              type='text'
-            />
-          </div>
         
           
             
-          {/* INGREDIENTS */}
-          <h3>Ingredients</h3>
-          <div className={styles.recipeFormSection}>               
-            <FieldFromArray
-              name="recipeIngredient"
-            />
-          </div>
+          
             
-          {/* INSTRUCTIONS */}
-          <h3>Instructions</h3>
-          <div className={styles.recipeFormSection}>               
-            <FieldsFromInstructions
-              name='recipeInstructions'
-            />
-          </div>
+          
 
 
           {/*  SUBMIT  */}

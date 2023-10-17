@@ -43,11 +43,12 @@ export const RecipeForm = (props: IProps) => {
     recipeIngredient: recipe?.recipeIngredient,
     recipeInstructions: recipe?.recipeInstructions
   })
+  const [currStep, setCurrStep] = useState(0);
+
+  const paginationSteps = ['Your New Recipe', 'Recipe Type', 'Ingredients', 'Instructions', 'Nutrition']
 
   return (
     <div className={styles.recipeFormContainer}>
-      <h2>{recipe?.name}</h2>
-      <img src={newRecipe?.selectedImage} alt={recipe?.name} />
       <Formik
         initialValues={recipe ? newRecipe : initVals}
         enableReinitialize={true}
@@ -59,67 +60,109 @@ export const RecipeForm = (props: IProps) => {
         }}
       >
         {(Formik) => (
-        <Form>
-          {/*  NUTRITION */}
-          <div className={styles.recipeFormSection}>
-              <h3>Nutrition</h3>              
+          <Form>
+            {/* ================ Step 1 ================ */}
+            {currStep === 0 &&
+              <div className={styles.step}>
+                <h2>{paginationSteps[currStep]}</h2>
+                <p>We've grabbed your recipe.  Please confirm the info below and click continue.</p>
+                <div className={styles.stepContainer} >
+                  <div className={styles.stepSubContainer}>
+                    <h3>{recipe?.name}</h3>
+                    <div>
+                      <img className={styles.recipeFormImage} src={newRecipe?.selectedImage} alt={recipe?.name} />
+                    </div>
+                  </div>
+
+                  {/* DESCRIPTION */}
+                
+                  <div className={styles.stepSubContainer}>
+                    <h3>Description</h3>
+                    <TextBox
+                      label='description'
+                      name='description'
+                      type='text'
+                    />
+                    {/* RATING */}                        
+                    <h3>Rating</h3>
+                    <RatingInput                
+                      currValue={Formik.values.userRating ? Formik.values.userRating : 0}
+                      name='userRating'
+                    />
+
+                    {/* USER COMMENTS */} 
+                    <h3>Your comments</h3>               
+                    <TextBox
+                      label='userComments'
+                      name='userComments'
+                      type='text'
+                      placeholder='Comments'
+                    />
+                    <button className={styles.paginationNavButton} onClick={() => setCurrStep(currStep + 1)}>Continue</button>
+                  </div>
+                </div>
+              </div>
+            }
+           
+            {/* ================ Step 2 ================ */}
+            {currStep === 1 &&
+              <div className={styles.recipeFormSection}>
+                <h2>{paginationSteps[currStep]}</h2>
+                {/*  COOKING METHOD */}
+                <h3>Cooking Method</h3>
+                <>
+                  {cookingmethods.map((method) => (
+                    <label>
+                      <Field type='checkbox' name='cookingMethod' value={method} />
+                      {method}
+                    </label>
+                  ))
+                  }
+                </>
+                {/* CATEGORY */}
+                <h3>Category</h3>
+                <FieldFromArray
+                  name="recipeCategory"
+                />
+                
+                {/* CUISINE */}
+                <h3>Cuisine</h3>
+                <FieldFromArray
+                  name="recipeCuisine"
+                />
+                <button className={styles.paginationNavButton} onClick={() => setCurrStep(currStep - 1)}>Go Back</button>
+                <button className={styles.paginationNavButton} onClick={() => setCurrStep(currStep + 1)}>Continue</button>
+              </div>
+                
+            }
+            {/* ================ Step 3 ================ */}
+            {currStep === 2 &&
+              < div className={styles.recipeFormSection}>
+              <h2>{paginationSteps[currStep]}</h2>
+              {/*  NUTRITION */ }
+              <h3>Nutrition</h3>
               <>
-                { newRecipe.nutrition &&
-                  Object.keys(newRecipe.nutrition).map((key) => { 
-                    return key !== '@type' && 
+                {newRecipe.nutrition &&
+                  Object.keys(newRecipe.nutrition).map((key) => {
+                    return key !== '@type' &&
                       <>
                         <TextInput
                           label={key}
                           name={key}
                           type='text'
-                          // value={newRecipe.nutrition && newRecipe.nutrition[key as keyof INutrition]}
+                        // value={newRecipe.nutrition && newRecipe.nutrition[key as keyof INutrition]}
                         />
                       </>
-                  })  
+                  })
                 }
               </>
-              </div>
-
-          {/*  COOKING METHOD */}
-          <div className={styles.recipeFormSection}>
-          <h3>Cooking Method</h3>
-            <>
-              {cookingmethods.map((method) => (
-                  <label>
-                    <Field type='checkbox' name='cookingMethod' value={method} />
-                    {method}
-                  </label>
-                ))
-              }
-          </>
+              <button className={styles.paginationNavButton} onClick={() => setCurrStep(currStep - 1)}>Go Back</button>
+              <button className={styles.paginationNavButton} onClick={() => setCurrStep(currStep + 1)}>Continue</button>
           </div>
+    }
+          
 
-          {/* RATING */}
-          <div className={styles.recipeFormSection}>             
-              <RatingInput                
-              currValue={Formik.values.userRating ? Formik.values.userRating : 0}
-              name='userRating'
-            />
-          </div>
-
-          {/* USER COMMENTS */}          
-          <div className={styles.recipeFormSection}>             
-            <TextBox
-              label='userComments'
-              name='userComments'
-              type='text'
-              placeholder='Comments'
-            />
-          </div>
-
-          {/* DESCRIPTION */}       
-          <div className={styles.recipeFormSection}>             
-            <TextBox
-              label='description'
-              name='description'
-              type='text'
-            />
-          </div>
+          
           
 
           {/* PREP TIME */}       
@@ -150,21 +193,7 @@ export const RecipeForm = (props: IProps) => {
             />
           </div>
         
-          {/* CATEGORY */}
-          <h3>Category</h3>
-          <div className={styles.recipeFormSection}>             
-            <FieldFromArray
-              name="recipeCategory"
-            />
-          </div>
           
-          {/* CUISINE */}
-          <h3>Cuisine</h3>
-          <div className={styles.recipeFormSection}>             
-            <FieldFromArray
-              name="recipeCuisine"
-            />
-          </div>
             
           {/* INGREDIENTS */}
           <h3>Ingredients</h3>

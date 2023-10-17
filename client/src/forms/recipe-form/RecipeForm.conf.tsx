@@ -29,8 +29,8 @@ export const TextBox = ({ label, ...props }: IOtherProps & FieldHookConfig<strin
   const [field, meta] = useField(props);
   return (
     <>
-      <label htmlFor={props.id || props.name}>{label}</label>
-      <Field className={styles.textBox} {...field} {...props} />
+      {/* <label htmlFor={props.id || props.name}>{label}</label> */}
+      <Field className={styles.textBox} {...field} {...props} as='textarea' />
       {
       meta.touched && meta.error
         ? (<div className={styles.formError}>{meta.error}</div>)
@@ -48,7 +48,7 @@ export const FieldFromArray = (props: FieldHookConfig<string>) => {
       render={arrayHelpers => (
         <>
           {Array.isArray(field.value) && field.value.map((inputItem, idx) => (
-            <div key={idx}>
+            <div key={idx} >
               <label htmlFor={`inputItem.$(idx)`} className={styles.inputLabel}>{idx + 1}</label>
               <input id={`inputItem.$(idx)`} name={`inputItem.$(idx)`} type='text' onChange={field.onChange} value={inputItem} />
             </div>
@@ -94,13 +94,10 @@ export const RatingInput = ({ currValue, ...props }: ICurrValue & FieldHookConfi
         </label>
       )
     }
-  return (    
-    <>
-      <div id='userRating' className={styles.inputLabel}>Rating</div> 
-      <div className={styles.radioGroup} role='group' aria-labelledby='userRating'>
-        {component}
-      </div>  
-    </>
+  return (         
+    <div className={styles.ratingContainer} role='group' aria-labelledby='userRating'>
+      {component}
+    </div>  
   )
 }
 

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import { Home } from "./pages/home/Home";
+import { Start } from "./pages/start/Start";
 import "./styles/index.scss";
 
 declare module '@mui/material/styles' {
@@ -77,7 +78,7 @@ function App() {
 					<div className='App'>
 						<section>
 							<Routes>
-								<Route path='/' element={<Home />} />
+								<Route path='/' element={<Start />} />
 								<Route path='*'>{/* <NotFound /> */}</Route>
 							</Routes>
 						</section>

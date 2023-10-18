@@ -1,8 +1,7 @@
 import React from 'react';
-import { Paper, Box } from '@mui/material';
+import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
-import { RecipeThumbnail } from '../recipe-thumbnail/RecipeThumbnail';
 import { RecipeForm } from '../../forms/recipe-form/RecipeForm';
 import { IRecipe } from '../../index.types';
 

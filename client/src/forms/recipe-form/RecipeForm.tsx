@@ -1,16 +1,6 @@
 import React, { useState } from "react";
 import { Formik, Form, FormikProps } from "formik";
-import {
-	Box,
-	Button,
-	Checkbox,
-	Divider,
-	FormGroup,
-  FormControlLabel,
-	Grid,
-	Paper,
-  TextField
-} from "@mui/material";
+import { Paper } from "@mui/material";
 import * as Yup from "yup";
 
 import {
@@ -21,18 +11,7 @@ import {
 	Step5,
 } from "./steps";
 
-import FormStepper from "../../components/form-stepper/FormStepper";
-
-import {
-	TextBox,
-	TextInput,
-	RatingInput,
-	FieldFromArray,
-	FieldsFromInstructions,
-	initVals,
-	cookingmethods,
-	IProps,
-} from "./RecipeForm.conf";
+import { initVals, IProps } from "./RecipeForm.conf";
 import { IRecipe, CookingMethod } from "../../index.types";
 
 import styles from "./RecipeForm.module.scss";

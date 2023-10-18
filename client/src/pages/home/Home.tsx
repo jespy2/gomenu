@@ -5,21 +5,13 @@ import { Navbar } from "../../components/navbar/Navbar";
 import { MainDisplay } from "../../components/main-display/MainDisplay";
 
 import apis from "../../api";
-import { IInstructionSection, IInstructionStep, IRecipe } from '../../index.types';
+import { IRecipe } from '../../index.types';
 import { jsonldConvertor } from "../../utils/utils";
 import styles from "./Home.module.scss";
 
 export const Home = () => {
 	const [recipe, setRecipe] = useState<IRecipe | undefined>();
 	const [userURL, setUserURL] = useState<string>();
-
-	
-
-	const instructionsConvertor = (instructions: IInstructionSection[] | IInstructionStep[]) => {
-		instructions.length && instructions.map((instruction) => {
-			return instruction
-		})
-	}
 
 	useEffect(() => {
 		recipe && console.log('intructions: ', recipe.recipeInstructions)
@@ -28,7 +20,6 @@ export const Home = () => {
 		recipe && console.log('recipeIngredient: ', jsonldConvertor(recipe, "recipeIngredient"))
 		recipe && console.log('recipeCuisine: ', jsonldConvertor(recipe, "recipeCuisine"))
 	}, [recipe])
-	
 
 	useEffect(() => {
 		userURL &&
@@ -46,14 +37,7 @@ export const Home = () => {
 
 	return (
 		<Container disableGutters={true} maxWidth={false}>
-			<Grid
-				container
-				sx={{ height: "100%"}}
-				columns={16}
-				// direction="row"
-				// justifyContent="space-between"
-				// alignItems="stretch"
-			>
+			<Grid container sx={{ height: "100%"}} columns={16} >
 				<Grid item xs={3}>
 					<Navbar setUserURL={setUserURL} />
 				</Grid>

@@ -1,4 +1,6 @@
 import React from 'react';
+import { Paper, Box } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 import { RecipeThumbnail } from '../recipe-thumbnail/RecipeThumbnail';
 import { RecipeForm } from '../../forms/recipe-form/RecipeForm';
@@ -11,17 +13,21 @@ type IProps = {
 }
 
 export const MainDisplay = (props: IProps): JSX.Element => {
+  const theme = useTheme();
   return (
-    <div className={styles.mainDisplayContainer}>
-      <h1>Username's Cookbook</h1>
-      <div className={styles.mainDisplay}>
-        {props.recipe &&
+    <Box className={styles.mainDisplayContainer}  sx={{ bgcolor: theme.palette.primary.main}}>
+      <Box>
+        <h1>Username's Cookbook</h1>
+      </Box>
+      
+      {props.recipe &&
+        <Paper className={styles.mainDisplay}>
           <RecipeForm recipe={props.recipe} />
-        }
-        {props.recipe &&         
-        <RecipeThumbnail recipe={props.recipe} />
-        }
-      </div>
-    </div>
+        </Paper>
+      }
+      {props.recipe &&         
+      <RecipeThumbnail recipe={props.recipe} />
+      }
+    </Box>
   )
 }

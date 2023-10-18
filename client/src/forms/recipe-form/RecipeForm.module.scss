@@ -27,12 +27,7 @@
     transform: scale(1.05);
     box-shadow: 0 0 20px #ccc;
   }
-
-  label {
-    font-size: 1rem;
-    margin-bottom: $spacing-3;
-  }
-
+// Step styles
   .step {
     display: flex;
     flex-direction: column;
@@ -64,20 +59,6 @@
       // height: 300px;
     }
     
-    .textBox {
-      width: 100%;
-      height: 100%;
-      padding: $spacing-2;
-      resize: vertical;
-      border: 1px solid #ccc;
-      border-radius: $border-radius;
-      box-shadow: 0 0 10px #ccc;
-      transition: all 0.3s ease-in-out;
-    }
-    p {
-      font-size: 1rem;
-      margin-bottom: $spacing-2;
-    }
     .ratingContainer {
       display: flex;
       flex-direction: row;
@@ -89,31 +70,53 @@
       display: none
     }
   }
-  .paginationNavButton{
-    margin-top: $spacing-3;
+ 
+  .recipeFormSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-3;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px #ccc;
-    transition: all 0.3s ease-in-out;
+    width: 100%;
+  
+    .recipeFormSubSection {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin-bottom: $spacing-3;
+      padding: $spacing-3;
+      border: 1px solid #ccc;
+    }
+  
+    .narrowTextField {
+      width: 50%;
+      margin-right: $spacing-3;
+    }     
   }
 }
 
-
-.recipeFormSection {
+.nutritionStepContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  margin-bottom: $spacing-3;
   padding: $spacing-3;
   border: 1px solid #ccc;
-  border-radius: $border-radius;
-  box-shadow: 0 0 10px #ccc;
-  transition: all 0.3s ease-in-out;
+  width: 80%;
+  margin: $spacing-3;
 
-  .inputLabel {
-    font-size: 1.2rem;
-    margin-bottom: $spacing-2;
-  }  
+  .nutritionSection {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    padding: $spacing-3;
+  }
+
+  .nutritionItem{
+    width: 10rem;
+  }
 }

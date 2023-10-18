@@ -1,23 +1,22 @@
 @import '../../styles/variables';
 
 .mainDisplayContainer {
-    background-color: $gm-brown;
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    padding: $spacing-3;
-    height: 100vh;
+    // background-color: $gm-brown;
+    // display: flex;
+    // flex-direction: column;
+    // width: 80%;
+    // padding: $spacing-3;
+    height: 100%;
 
     h1 {
         font-size: 2rem;
-        color: $yellow;
-        margin-bottom: $spacing-3;
+        margin-block-start: unset;
         text-align: center;
     }
 
     .mainDisplay {
         background-color: $off-white-2;
-        width: 100%;
-        overflow-y: scroll;
+        // width: 100%;
+        // overflow-y: scroll;
     }
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field, useField, FieldHookConfig, FieldArray } from 'formik';
+import { TextField } from '@mui/material';
 
 import { Dish } from '../../components/ratings/Dish';
 import { IRecipe, CookingMethod } from '../../index.types';
@@ -13,15 +14,19 @@ interface IOtherProps {
 export const TextInput = ({ label, ...props }: IOtherProps & FieldHookConfig<string>) => {
   const [field, meta] = useField(props);
   return (
-    <>
-      {/* <label htmlFor={props.id || props.name}>{label}</label> */}
-      <Field className={styles.textInput} {...field} {...props} />
-      {
-      meta.touched && meta.error
-        ? (<div className={styles.formError}>{meta.error}</div>)
-        : null
-      }
-    </>
+      <TextField
+        fullWidth
+        id={props.id || props.name}
+        name={field.name}
+        value={field.value}
+        onChange={field.onChange}
+        onBlur={field.onBlur}
+        label={label}
+        variant='standard'
+        className={styles.textInput}
+        error={meta.touched && Boolean(meta.error)}
+        helperText={meta.touched && meta.error}
+      />
   )
 }
 
@@ -30,7 +35,21 @@ export const TextBox = ({ label, ...props }: IOtherProps & FieldHookConfig<strin
   return (
     <>
       {/* <label htmlFor={props.id || props.name}>{label}</label> */}
-      <Field className={styles.textBox} {...field} {...props} as='textarea' />
+      <TextField
+        id={props.id || props.name}
+        name={field.name}
+        fullWidth
+        multiline
+        maxRows={4}
+        value={field.value}
+        onChange={field.onChange}
+        onBlur={field.onBlur}
+        label={label}
+        variant='standard'
+        className={styles.textInput}
+        error={meta.touched && Boolean(meta.error)}
+        helperText={meta.touched && meta.error}
+      />
       {
       meta.touched && meta.error
         ? (<div className={styles.formError}>{meta.error}</div>)
@@ -48,10 +67,21 @@ export const FieldFromArray = (props: FieldHookConfig<string>) => {
       render={arrayHelpers => (
         <>
           {Array.isArray(field.value) && field.value.map((inputItem, idx) => (
-            <div key={idx} >
-              <label htmlFor={`inputItem.$(idx)`} className={styles.inputLabel}>{idx + 1}</label>
-              <input id={`inputItem.$(idx)`} name={`inputItem.$(idx)`} type='text' onChange={field.onChange} value={inputItem} />
-            </div>
+              <TextField
+                fullWidth
+                id={`inputItem.$(idx)`}
+                key={idx}
+                multiline
+                maxRows={4}
+                name={`inputItem.$(idx)`}
+                value={inputItem}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                variant='standard'
+                className={styles.textInput}
+                error={meta.touched && Boolean(meta.error)}
+                helperText={meta.touched && meta.error}
+              />
           ))}
         </>
       )}
@@ -67,10 +97,21 @@ export const FieldsFromInstructions = (props: FieldHookConfig<string>) => {
       render={arrayHelpers => (
         <>
           {Array.isArray(field.value) && field.value.map((step, idx) => (
-            <div key={idx}>
-              <label htmlFor={step.txt} className={styles.inputLabel}>{idx + 1}</label>
-              <input id={`step.text`} name={`step.$(idx)`} type='text' onChange={field.onChange} value={step.text} />
-            </div>
+              <TextField
+                fullWidth
+                id={`step.$(idx)`}
+                key={idx}
+                name={`step.$(idx)`}
+                multiline
+                maxRows={6}
+                value={step.text}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                variant='standard'
+                className={styles.textInput}
+                error={meta.touched && Boolean(meta.error)}
+                helperText={meta.touched && meta.error}
+              />
           ))}
         </>
       )}

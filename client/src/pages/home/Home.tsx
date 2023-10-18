@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Container, Grid} from "@mui/material";
 
 import { Navbar } from "../../components/navbar/Navbar";
 import { MainDisplay } from "../../components/main-display/MainDisplay";
@@ -44,9 +45,22 @@ export const Home = () => {
 	}, [userURL]);
 
 	return (
-		<div className={styles.homeContainer}>
-			<Navbar setUserURL={setUserURL} />
-			<MainDisplay recipe={recipe} />
-		</div>
+		<Container disableGutters={true} maxWidth={false}>
+			<Grid
+				container
+				sx={{ height: "100%"}}
+				columns={16}
+				// direction="row"
+				// justifyContent="space-between"
+				// alignItems="stretch"
+			>
+				<Grid item xs={3}>
+					<Navbar setUserURL={setUserURL} />
+				</Grid>
+				<Grid item xs={13}>
+					<MainDisplay recipe={recipe} />
+				</Grid>
+			</Grid>
+		</Container>
 	);
 };

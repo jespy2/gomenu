@@ -1,4 +1,7 @@
 import React, { useState, Dispatch, SetStateAction } from "react";
+import { Box, Button, TextField } from '@mui/material';
+
+import styles from './URLSearch.module.scss';
 
 export const URLSearch = (
   { setUserURL } : { setUserURL: Dispatch<SetStateAction<string | undefined>>}
@@ -19,17 +22,19 @@ export const URLSearch = (
   }
 
   return (
-    <>
+    <Box className={styles.urlSearchContainer}>
       <h2>Enter Recipe URL</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="user_url">Your URL</label>
-        <input
-          type="text"
+        <TextField
+          label="Your URL"
+          id="user_url"
+          variant="standard"
+          helperText='Enter a URL from a recipe on a website'
           value={_userURL}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
         />
-        <input type='submit' value='Submit' />
+        <Button color='secondary' variant='text' type='submit' value='Submit'>Submit</Button>
       </form>
-    </>
+    </Box>
   )
 }

@@ -5,16 +5,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: $border-radius;
-  box-shadow: 0 0 10px #ccc;
-  transition: all 0.3s ease-in-out;
+  margin: $spacing-3;
 
   h2 {
     font-size: 1.5rem;
     margin: $spacing-3 0;
     text-align: center;
+  }
+
+  label {
+    // font-size: large;
+    font-weight: bold;
   }
 
   .recipeFormImage {
@@ -27,8 +28,8 @@
     transform: scale(1.05);
     box-shadow: 0 0 20px #ccc;
   }
-// Step styles
-  .step {
+  
+  .stepContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,33 +42,46 @@
     border-radius: $border-radius;
     box-shadow: 0 0 10px #ccc;
     transition: all 0.3s ease-in-out;
-  
-    .stepContainer {
+    
+    .step1Container {
       display: flex;
       flex-direction: row;
-      align-items: stretch;
-      // justify-content: stretch;
       width: 100%;
     }
   
-    .stepSubContainer {
+    .stepRow {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-around;
+      width: 100%;
+    }
+
+    .stepColumn {
       display: flex;
       flex-direction: column;
       align-items: start;
-      justify-content: flex-start;
+      justify-content: space-between;
       width: 50%;
-      // height: 300px;
     }
-    
+
     .ratingContainer {
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: center;
+      margin-top: 1rem;
       width: 100%;    
     }
+
     .ratingsForm {
       display: none
+    }
+
+    .textInput {
+      width: 80%;
+      margin-bottom: $spacing-2;
     }
   }
  
@@ -96,6 +110,17 @@
       margin-right: $spacing-3;
     }     
   }
+
+  .formDivider {
+    width: 100%;
+    margin: $spacing-3;
+    border-bottom: 1px solid #ccc;    
+  }
+
+  .nutritionItem{
+    width: 10rem;
+    margin-bottom: 1rem;
+  }
 }
 
 .nutritionStepContainer {
@@ -104,7 +129,6 @@
   align-items: center;
   justify-content: center;
   padding: $spacing-3;
-  border: 1px solid #ccc;
   width: 80%;
   margin: $spacing-3;
 
@@ -114,9 +138,5 @@
     align-items: stretch;
     justify-content: space-between;
     padding: $spacing-3;
-  }
-
-  .nutritionItem{
-    width: 10rem;
   }
 }

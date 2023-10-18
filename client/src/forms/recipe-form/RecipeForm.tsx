@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, FormikProps } from "formik";
 import {
 	Box,
 	Button,
@@ -7,10 +7,19 @@ import {
 	Divider,
 	FormGroup,
   FormControlLabel,
-  Grid,
+	Grid,
+	Paper,
   TextField
 } from "@mui/material";
 import * as Yup from "yup";
+
+import {
+	Step1,
+	Step2,
+	Step3,
+	Step4,
+	Step5,
+} from "./steps";
 
 import FormStepper from "../../components/form-stepper/FormStepper";
 
@@ -64,8 +73,16 @@ export const RecipeForm = (props: IProps) => {
 		"Nutrition",
 	];
 
+	const handleNextStep = () => {
+		setCurrStep(currStep + 1)
+	}
+
+	const handleLastStep = () => {
+		setCurrStep(currStep - 1)
+	}
+
 	return (
-		<div className={styles.recipeFormContainer}>
+		<Paper className={styles.recipeFormContainer}>
 			<Formik
 				initialValues={recipe ? newRecipe : initVals}
 				enableReinitialize={true}
@@ -80,237 +97,65 @@ export const RecipeForm = (props: IProps) => {
 					<Form>
 						{/* ================ Step 1 ================ */}
 						{currStep === 0 && (
-							<Box className={styles.step}>
-								<h2>{paginationSteps[currStep]}</h2>
-								<p>
-									We've grabbed your recipe. Please confirm the info below and
-									click continue.
-								</p>
-								<Box className={styles.stepContainer}>
-									<Box className={styles.stepSubContainer}>
-										<h3>{recipe?.name}</h3>
-										<Box>
-											<img
-												className={styles.recipeFormImage}
-												src={newRecipe?.selectedImage}
-												alt={recipe?.name}
-											/>
-										</Box>
-									</Box>
-
-									{/* DESCRIPTION */}
-
-									<Box className={styles.stepSubContainer}>
-										{/* <h3>Description</h3> */}
-										<TextBox
-											label='description'
-											name='description'
-											type='text'
-										/>
-										{/* RATING */}
-										<h3>Rating</h3>
-										<RatingInput
-											currValue={
-												Formik.values.userRating ? Formik.values.userRating : 0
-											}
-											name='userRating'
-										/>
-
-										{/* USER COMMENTS */}
-										{/* <h3>Your comments</h3>                */}
-										<TextBox
-											label='userComments'
-											name='userComments'
-											type='text'
-											placeholder='Comments'
-										/>
-										<Button
-											className={styles.paginationNavButton}
-											onClick={() => setCurrStep(currStep + 1)}
-										>
-											Continue
-										</Button>
-									</Box>
-								</Box>
-								<Divider variant='fullWidth' />
-								<FormStepper steps={paginationSteps} currStep={currStep} />
-							</Box>
+							<Step1
+								Formik={Formik as FormikProps<IRecipe>}
+								newRecipe={newRecipe}
+								paginationSteps={paginationSteps}
+								currStep={currStep}
+								handleNextStep={handleNextStep}
+								handleLastStep={handleLastStep}
+							/>
 						)}
 
 						{/* ================ Step 2 ================ */}
 						{currStep === 1 && (
-							<Box className={styles.recipeFormSection}>
-								<h2>{paginationSteps[currStep]}</h2>
-								{/*  COOKING METHOD */}
-								<h3>Cooking Method</h3>
-								<FormGroup aria-label='position' row>
-									{cookingmethods.map((method) => (
-                    <FormControlLabel
-                      key={method}
-											value={method}
-											control={<Checkbox />}
-											label={method}
-											labelPlacement='start'
-										/>
-									))}
-								</FormGroup>
-								<Box className={styles.recipeFormSubSection}>
-									{/* CATEGORY */}
-									<Box className={styles.narrowTextField}>
-										<h3>Category</h3>
-										<FieldFromArray name='recipeCategory' />
-									</Box>
-
-									{/* CUISINE */}
-									<Box className={styles.narrowTextField}>
-										<h3>Cuisine</h3>
-										<FieldFromArray name='recipeCuisine' />
-									</Box>
-								</Box>
-								<Box className={styles.recipeFormSubSection}>
-									{/* PREP TIME */}
-									<Box className={styles.narrowTextField}>
-										<h3>Prep Time</h3>
-										<TextInput label='prepTime' name='prepTime' type='text' />
-									</Box>
-
-									{/* COOK TIME */}
-									<Box className={styles.narrowTextField}>
-										<h3>Total Cook Time</h3>
-										<TextInput label='cookTime' name='cookTime' type='text' />
-									</Box>
-
-									{/* YIELD */}
-									<Box className={styles.narrowTextField}>
-										<h3>Servings</h3>
-										<TextInput
-											label='recipeYield'
-											name='recipeYield'
-											type='text'
-										/>
-									</Box>
-								</Box>
-
-								<Button
-									className={styles.paginationNavButton}
-									onClick={() => setCurrStep(currStep - 1)}
-								>
-									Go Back
-								</Button>
-								<Button
-									className={styles.paginationNavButton}
-									onClick={() => setCurrStep(currStep + 1)}
-								>
-									Continue
-								</Button>
-								<Divider variant='fullWidth' />
-								<FormStepper steps={paginationSteps} currStep={currStep} />
-							</Box>
+							<Step2
+								Formik={Formik as FormikProps<IRecipe>}
+								newRecipe={newRecipe}
+								paginationSteps={paginationSteps}
+								currStep={currStep}
+								handleNextStep={handleNextStep}
+								handleLastStep={handleLastStep}
+							/>						
 						)}
 
 						{/* ================ Step 3 ================ */}
 						{currStep === 2 && (
-							<Box className={styles.recipeFormSection}>
-								{/* INGREDIENTS */}
-								<h3>Ingredients</h3>
-								<FieldFromArray name='recipeIngredient' />
-
-								<Button
-									className={styles.paginationNavButton}
-									onClick={() => setCurrStep(currStep - 1)}
-								>
-									Go Back
-								</Button>
-								<Button
-									className={styles.paginationNavButton}
-									onClick={() => setCurrStep(currStep + 1)}
-								>
-									Continue
-                </Button>                
-								<Divider variant='fullWidth' />
-								<FormStepper steps={paginationSteps} currStep={currStep} />
-							</Box>
+							<Step3
+								Formik={Formik as FormikProps<IRecipe>}
+								newRecipe={newRecipe}
+								paginationSteps={paginationSteps}
+								currStep={currStep}
+								handleNextStep={handleNextStep}
+								handleLastStep={handleLastStep}
+							/>
 						)}
 
 						{/* ================ Step 4 ================ */}
 						{currStep === 3 && (
-							<Box className={styles.recipeFormSection}>
-								{/* INSTRUCTIONS */}
-								<h3>Instructions</h3>
-								<FieldsFromInstructions name='recipeInstructions' />
-
-								<Button
-									className={styles.paginationNavButton}
-									onClick={() => setCurrStep(currStep - 1)}
-								>
-									Go Back
-								</Button>
-								<Button
-									className={styles.paginationNavButton}
-									onClick={() => setCurrStep(currStep + 1)}
-								>
-									Continue
-								</Button>
-								<Divider variant='fullWidth' />
-								<FormStepper steps={paginationSteps} currStep={currStep} />
-							</Box>
+							<Step4
+								Formik={Formik as FormikProps<IRecipe>}
+								newRecipe={newRecipe}
+								paginationSteps={paginationSteps}
+								currStep={currStep}
+								handleNextStep={handleNextStep}
+								handleLastStep={handleLastStep}
+							/>
 						)}
 						{/* ================ Step 5 ================ */}
 						{currStep === 4 && (
-							<Box className={styles.nutritionStepContainer} >
-								<h2>{paginationSteps[currStep]}</h2>
-								{/*  NUTRITION */}
-                <Grid
-                  container
-                  rowSpacing={2}
-                  columnSpacing={{ xs: 1, sm: 2, md: 2 }}
-                  className={styles.nutritionSection}
-                >
-									{newRecipe.nutrition &&
-										Object.keys(newRecipe.nutrition).map((key) => {
-											return (
-												key !== "@type" && (
-													<Grid item xs={4}>
-                            <TextField
-                              className={styles.nutritionItem}
-                              key={key}
-															label={key}
-															name={key}
-															type='text'
-															value={
-																newRecipe.nutrition &&
-																newRecipe.nutrition[
-																	key as keyof typeof newRecipe.nutrition
-																]
-															}
-														/>
-													</Grid>
-												)
-											);
-										})}
-								</Grid>
-								<Button
-									className={styles.paginationNavButton}
-									onClick={() => setCurrStep(currStep - 1)}
-								>
-									Go Back
-								</Button>
-								<Button
-									className={styles.paginationNavButton}
-									onClick={() => setCurrStep(currStep + 1)}
-								>
-									Continue
-								</Button>
-                
-								{/*  SUBMIT  */}
-                <Button type='submit'>Submit</Button>                
-								<Divider variant='fullWidth' />
-								<FormStepper steps={paginationSteps} currStep={currStep} />
-							</Box>
+							<Step5
+								Formik={Formik as FormikProps<IRecipe>}
+								newRecipe={newRecipe}
+								paginationSteps={paginationSteps}
+								currStep={currStep}
+								handleNextStep={handleNextStep}
+								handleLastStep={handleLastStep}
+							/>
 						)}
 					</Form>
 				)}
 			</Formik>
-		</div>
+		</Paper>
 	);
 };

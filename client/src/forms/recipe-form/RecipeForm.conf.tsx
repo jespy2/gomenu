@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, useField, FieldHookConfig, FieldArray } from 'formik';
-import { TextField } from '@mui/material';
+import { TextField, Box } from '@mui/material';
 
 import { Dish } from '../../components/ratings/Dish';
 import { IRecipe, CookingMethod } from '../../index.types';
@@ -33,8 +33,6 @@ export const TextInput = ({ label, ...props }: IOtherProps & FieldHookConfig<str
 export const TextBox = ({ label, ...props }: IOtherProps & FieldHookConfig<string>) => {
   const [field, meta] = useField(props);
   return (
-    <>
-      {/* <label htmlFor={props.id || props.name}>{label}</label> */}
       <TextField
         id={props.id || props.name}
         name={field.name}
@@ -50,12 +48,6 @@ export const TextBox = ({ label, ...props }: IOtherProps & FieldHookConfig<strin
         error={meta.touched && Boolean(meta.error)}
         helperText={meta.touched && meta.error}
       />
-      {
-      meta.touched && meta.error
-        ? (<div className={styles.formError}>{meta.error}</div>)
-        : null
-      }
-    </>
   )
 }
 
@@ -66,6 +58,7 @@ export const FieldFromArray = (props: FieldHookConfig<string>) => {
       name={field.name}
       render={arrayHelpers => (
         <>
+          <label> {field.name === 'recipeIngredient' ? 'Recipe Ingredients' : field.name} </label>
           {Array.isArray(field.value) && field.value.map((inputItem, idx) => (
               <TextField
                 fullWidth
@@ -104,6 +97,7 @@ export const FieldsFromInstructions = (props: FieldHookConfig<string>) => {
                 name={`step.$(idx)`}
                 multiline
                 maxRows={6}
+                label={`Step ${idx + 1}`}
                 value={step.text}
                 onChange={field.onChange}
                 onBlur={field.onBlur}
@@ -124,23 +118,25 @@ interface ICurrValue {
 }
   
 export const RatingInput = ({ currValue, ...props }: ICurrValue & FieldHookConfig<string>) => {
-  const [field, meta] = useField(props);
   let component = [];
-  for (let i = 1; i <= 5; i++){
-      const _id = i.toString();
-      component.push(
-        <label key={_id}>
-          <Field className={styles.ratingsForm} type='radio'  {...props} value={i} />
-          <Dish idx={i} isFull={i <= currValue} />
-        </label>
-      )
-    }
-  return (         
-    <div className={styles.ratingContainer} role='group' aria-labelledby='userRating'>
-      {component}
-    </div>  
+  for (let i = 1; i <= 5; i++) {
+    const _id = i.toString();
+    component.push(
+      <label key={_id}>
+        <Field className={styles.ratingsForm} type='radio'  {...props} value={i} />
+        <Dish idx={i} isFull={i <= currValue} />
+      </label>
+    )
+  }
+  return (
+    <Box >
+      <label id='userRating'>Rating</label>
+      <Box className={styles.ratingContainer} role='group' aria-labelledby='userRating'>
+        {component}
+      </Box>
+    </Box>
   )
-}
+};
 
 export const initVals = {
   _id: '',

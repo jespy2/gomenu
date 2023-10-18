@@ -21,12 +21,7 @@ export const MainDisplay = (props: IProps): JSX.Element => {
       </Box>
       
       {props.recipe &&
-        <Paper className={styles.mainDisplay}>
-          <RecipeForm recipe={props.recipe} />
-        </Paper>
-      }
-      {props.recipe &&         
-      <RecipeThumbnail recipe={props.recipe} />
+        <RecipeForm recipe={props.recipe} />
       }
     </Box>
   )

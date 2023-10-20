@@ -11,15 +11,15 @@ export const getRecipe = (url: any) => api.get('/api', {
     user_url: url
   }
 });
-export const getAllRecipes = () => api.get(`/api/recipe`);
-export const instertRecipe = (payload: any) => api.post(`/api/recipe`, payload);
-export const updateRecipeById = (id: Key, payload: any) => api.put(`/recipe/${id}`, payload);
-export const deleteRecipeById = (id: Key) => api.delete(`/recipe/${id}`);
+export const getAllRecipes = () => api.get(`/api/recipes`);
+export const insertRecipe = (payload: any) => api.post(`/api/recipes`, payload);
+export const updateRecipeById = (id: Key, payload: any) => api.put(`/recipes/${id}`, payload);
+export const deleteRecipeById = (id: Key) => api.delete(`/recipes/${id}`);
 
 const apis = {
   getRecipe,
   getAllRecipes,
-  instertRecipe,
+  insertRecipe,
   updateRecipeById,
   deleteRecipeById,
 }

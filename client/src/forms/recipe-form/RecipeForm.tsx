@@ -1,26 +1,21 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Formik, Form, FormikProps } from "formik";
 import { Paper } from "@mui/material";
 import * as Yup from "yup";
 
-import {
-	Step1,
-	Step2,
-	Step3,
-	Step4,
-	Step5,
-} from "./steps";
+import { Step1, Step2, Step3, Step4, Step5, Step6 } from "./steps";
 
-import { initVals, IProps } from "./RecipeForm.conf";
+import apis from "../../api";
+import { initVals } from "./RecipeForm.config";
 import { IRecipe, CookingMethod } from "../../index.types";
 
 import styles from "./RecipeForm.module.scss";
 
-export const RecipeForm = (props: IProps) => {
-	const { recipe } = props;
+export const RecipeForm = ({recipe}: {recipe: IRecipe | undefined}) => {
 	const [newRecipe, setNewRecipe] = useState<IRecipe>({
-		_id: "",
-		userName: "",
+		_id: undefined,
+		userName: recipe?.userName || "",
 		selectedImage: Array.isArray(recipe?.image)
 			? recipe?.image[0]
 			: recipe?.image,
@@ -50,15 +45,23 @@ export const RecipeForm = (props: IProps) => {
 		"Ingredients",
 		"Instructions",
 		"Nutrition",
+		"Review"
 	];
 
-	const handleNextStep = () => {
-		setCurrStep(currStep + 1)
+	const handleFormSubmit = async (values: IRecipe) => {
+		await apis.insertRecipe(values)
+			.then((res) => {
+				console.log(res)
+			})
 	}
 
+	const handleNextStep = () => {
+		setCurrStep(currStep + 1);
+	};
+
 	const handleLastStep = () => {
-		setCurrStep(currStep - 1)
-	}
+		setCurrStep(currStep - 1);
+	};
 
 	return (
 		<Paper className={styles.recipeFormContainer}>
@@ -66,10 +69,11 @@ export const RecipeForm = (props: IProps) => {
 				initialValues={recipe ? newRecipe : initVals}
 				enableReinitialize={true}
 				onSubmit={(values, { setSubmitting }) => {
-					setTimeout(() => {
-						console.log(JSON.stringify(values, null, 2));
-						setSubmitting(false);
-					}, 400);
+					const _newRecipe = { ...values };
+					_newRecipe.userName = newRecipe.userName;
+					handleFormSubmit(_newRecipe as IRecipe);
+					console.log(JSON.stringify(values, null, 2));
+					setSubmitting(false);
 				}}
 			>
 				{(Formik) => (
@@ -95,7 +99,7 @@ export const RecipeForm = (props: IProps) => {
 								currStep={currStep}
 								handleNextStep={handleNextStep}
 								handleLastStep={handleLastStep}
-							/>						
+							/>
 						)}
 
 						{/* ================ Step 3 ================ */}
@@ -124,6 +128,17 @@ export const RecipeForm = (props: IProps) => {
 						{/* ================ Step 5 ================ */}
 						{currStep === 4 && (
 							<Step5
+								Formik={Formik as FormikProps<IRecipe>}
+								newRecipe={newRecipe}
+								paginationSteps={paginationSteps}
+								currStep={currStep}
+								handleNextStep={handleNextStep}
+								handleLastStep={handleLastStep}
+							/>
+						)}
+						{/* ================ Step 6 ================ */}
+						{currStep === 5 && (
+							<Step6
 								Formik={Formik as FormikProps<IRecipe>}
 								newRecipe={newRecipe}
 								paginationSteps={paginationSteps}

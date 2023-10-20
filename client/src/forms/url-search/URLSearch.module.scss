@@ -2,3 +2,11 @@
 .urlSearchContainer {
   margin: $spacing-1;
 }
+
+.navbarButtonsContainer {
+  height: 15vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}

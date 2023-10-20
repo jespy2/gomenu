@@ -55,7 +55,7 @@ export enum CookingMethod {
 }
 
 export interface IRecipe extends IRecipeFromLDJSON {	
-  _id: string;
+  _id?: string;
 	userName: string;
 	selectedImage?: string;
 	cookingMethod?: CookingMethod[];

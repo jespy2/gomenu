@@ -1,0 +1,13 @@
+@import '../../../styles/variables';
+
+.navbarHeader {
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+
+  .navbarLogo {
+    height: 25vh;
+    padding: $spacing-1;
+    margin: auto $spacing-6;
+  }
+}

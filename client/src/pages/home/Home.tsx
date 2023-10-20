@@ -14,14 +14,6 @@ export const Home = () => {
 	const [userURL, setUserURL] = useState<string>();
 
 	useEffect(() => {
-		recipe && console.log('intructions: ', recipe.recipeInstructions)
-		recipe && console.log('nutrion: ', jsonldConvertor(recipe, "nutrition"))
-		recipe && console.log('recipeCategory: ', jsonldConvertor(recipe, "recipeCategory"))
-		recipe && console.log('recipeIngredient: ', jsonldConvertor(recipe, "recipeIngredient"))
-		recipe && console.log('recipeCuisine: ', jsonldConvertor(recipe, "recipeCuisine"))
-	}, [recipe])
-
-	useEffect(() => {
 		userURL &&
 			(async () => {
 				await apis.getRecipe(userURL).then((data) => {
@@ -39,10 +31,10 @@ export const Home = () => {
 		<Container disableGutters={true} maxWidth={false}>
 			<Grid container sx={{ height: "100%"}} columns={16} >
 				<Grid item xs={3}>
-					<Navbar setUserURL={setUserURL} />
+					{/* <Navbar setUserURL={setUserURL} /> */}
 				</Grid>
 				<Grid item xs={13}>
-					<MainDisplay recipe={recipe} />
+						{/* <MainDisplay recipe={recipe} handleFormSubmit={handleFormSubmit} /> */}
 				</Grid>
 			</Grid>
 		</Container>

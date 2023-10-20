@@ -1,15 +1,9 @@
 import React from "react";
-import {
-	Box,
-	Divider,
-} from "@mui/material";
+import { Box, Divider } from "@mui/material";
 import * as Yup from "yup";
 
 import FormStepper from "../../../../components/form-stepper/FormStepper";
-import {
-	TextBox,
-	RatingInput,
-} from "../../RecipeForm.conf";
+import { TextBox, RatingInput } from "../../RecipeForm.config";
 import { IProps } from "./Steps.config";
 
 import styles from "../../RecipeForm.module.scss";

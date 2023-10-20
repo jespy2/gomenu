@@ -7,7 +7,7 @@ import styles from './Ratings.module.scss';
 
 interface IProps {
   count: number,
-  handleClick: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<IProps>>
+  handleClick?: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<IProps>>
 } 
 
 export const Ratings = ({ count, handleClick }: IProps) => (

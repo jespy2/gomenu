@@ -10,6 +10,35 @@ interface IOtherProps {
   label: string;
 }
 
+interface ICurrValue {
+  currValue: number;
+}
+
+export const cookingmethods = Object.keys(CookingMethod)
+
+export const initVals = {
+  _id: '',
+  userName: '',
+  selectedImage: '',
+  cookingMethod: CookingMethod.none,
+  userRating: 0,
+  userComments: '',
+  schemaType: 'Recipe',
+  recipeID: '',
+  image: '',
+  name: '',
+  description: '',
+  nutrition: '',
+  prepTime: '',
+  cookTime: '',
+  totalTime: '',
+  recipeYield: '',
+  recipeCategory: '',
+  recipeCuisine: '',
+  recipeIngredient: [''],
+    recipeInstructions: ''
+};
+
 
 export const TextInput = ({ label, ...props }: IOtherProps & FieldHookConfig<string>) => {
   const [field, meta] = useField(props);
@@ -112,10 +141,6 @@ export const FieldsFromInstructions = (props: FieldHookConfig<string>) => {
     />
   )
 }
-
-interface ICurrValue {
-  currValue: number;
-}
   
 export const RatingInput = ({ currValue, ...props }: ICurrValue & FieldHookConfig<string>) => {
   let component = [];
@@ -137,33 +162,3 @@ export const RatingInput = ({ currValue, ...props }: ICurrValue & FieldHookConfi
     </Box>
   )
 };
-
-export const initVals = {
-  _id: '',
-  userName: '',
-  selectedImage: '',
-  cookingMethod: CookingMethod.none,
-  userRating: 0,
-  userComments: '',
-  schemaType: 'Recipe',
-  recipeID: '',
-  image: '',
-  name: '',
-  description: '',
-  nutrition: '',
-  prepTime: '',
-  cookTime: '',
-  totalTime: '',
-  recipeYield: '',
-  recipeCategory: '',
-  recipeCuisine: '',
-  recipeIngredient: [''],
-    recipeInstructions: ''
-};
-
-export const cookingmethods = Object.keys(CookingMethod)
-
-
-export type IProps = {
-  recipe: IRecipe | undefined
-}

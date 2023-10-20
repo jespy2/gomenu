@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FormikErrors } from 'formik';
 
-import styles from './Ratings.module.scss';
+import styles from './RatingsDisplay.module.scss';
 
 interface IProps {
   idx: number,

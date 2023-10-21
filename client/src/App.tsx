@@ -4,7 +4,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import { Home } from "./pages/home/Home";
 import { Start } from "./pages/start/Start";
-import { RecipeCard } from "./pages/recipe-card/RecipeCard";
+import { ShowRecipe } from "./pages/show-recipe/ShowRecipe";
 import { Cookbook } from "./pages/cookbook/Cookbook";
 
 import { IRecipe } from "./index.types";
@@ -100,9 +100,9 @@ function App() {
 									/>
 								}
 							/>
-							<Route path='/newrecipe' element={<NewRecipe recipe={recipe} />} />
+							<Route path='/newrecipe' element={<NewRecipe recipe={recipe} setRecipe={setRecipe} />} />
 							{/* <Route path='/cookbook' element={<Cookbook recipe={recipe} />} /> */}
-							{/* <Route path='/recipecard' element={<RecipeCard recipe={recipe} />} /> */}
+								<Route path='/showrecipe' element={<ShowRecipe recipe={recipe} />} />
 								<Route path='*'>{/* <NotFound /> */}</Route>
 							</Routes>
 						</section>

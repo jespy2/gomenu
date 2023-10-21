@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import * as Yup from "yup";
 
-import { RecipeReviewCard } from "../../../../components/recipe-card/RecipeReviewCard";
+import { RecipeCard } from "../../../../components/recipe-card/RecipeCard";
 import FormStepper from "../../../../components/form-stepper/FormStepper";
 import { IProps } from "./Steps.config";
 
@@ -22,7 +22,7 @@ export const Step6 = (props: IProps) => {
 				{/*  NUTRITION */}
 				
 				<Box className={styles.stepRow} >
-					<RecipeReviewCard recipe={Formik.values} />
+					<RecipeCard recipe={Formik.values} />
 				</Box>
 								<Divider variant='fullWidth' className={styles.formDivider} />
 								<FormStepper steps={paginationSteps} currStep={currStep} handleNextStep={handleNextStep} handleLastStep={handleLastStep} />

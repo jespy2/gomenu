@@ -12,7 +12,13 @@ import { IRecipe, CookingMethod } from "../../index.types";
 
 import styles from "./RecipeForm.module.scss";
 
-export const RecipeForm = ({recipe}: {recipe: IRecipe | undefined}) => {
+interface IProps {
+  recipe: IRecipe | undefined;
+  setRecipe: React.Dispatch<React.SetStateAction<IRecipe | undefined>>;
+}
+
+export const RecipeForm = (props: IProps) => {
+	const { recipe, setRecipe } = props;
 	const [newRecipe, setNewRecipe] = useState<IRecipe>({
 		_id: undefined,
 		userName: recipe?.userName || "",
@@ -39,6 +45,8 @@ export const RecipeForm = ({recipe}: {recipe: IRecipe | undefined}) => {
 	});
 	const [currStep, setCurrStep] = useState(0);
 
+	const navigate = useNavigate()
+
 	const paginationSteps = [
 		"Your New Recipe",
 		"Recipe Type",
@@ -53,6 +61,9 @@ export const RecipeForm = ({recipe}: {recipe: IRecipe | undefined}) => {
 			.then((res) => {
 				console.log(res)
 			})
+			.then(() => setRecipe({...values}))
+			.then(() => setNewRecipe({...values}))
+			.then(() => navigate('/showrecipe'))
 	}
 
 	const handleNextStep = () => {

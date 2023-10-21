@@ -10,8 +10,14 @@ import { IRecipe } from "../../index.types";
 
 import styles from "./NewRecipe.module.scss";
 
-export const NewRecipe = ({ recipe }: { recipe: IRecipe | undefined }) => {
+interface IProps {
+  recipe: IRecipe | undefined;
+  setRecipe: React.Dispatch<React.SetStateAction<IRecipe | undefined>>;
+}
+
+export const NewRecipe = (props: IProps) => {
   const navigate = useNavigate();
+  const { recipe, setRecipe } = props;
 
 	return (
 		<Container disableGutters={true} maxWidth={false} >
@@ -26,7 +32,7 @@ export const NewRecipe = ({ recipe }: { recipe: IRecipe | undefined }) => {
             <Box>
               <h1>Your New Recipe</h1>
             </Box>
-            <RecipeForm recipe={recipe} />
+            <RecipeForm recipe={recipe} setRecipe={setRecipe} />
           </MainDisplay>
         </Grid>
         </Grid>

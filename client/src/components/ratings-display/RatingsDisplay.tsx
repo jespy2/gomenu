@@ -10,9 +10,9 @@ export const RatingsDisplay = ({ rating }: {rating: number}) => {
   for (let i = 1; i <= 5; i++) {
     const _id = i.toString();
     component.push(
-      <Typography key={_id} variant="body2" color="text.secondary">
-        <Dish idx={i} isFull={i <= rating} />
-      </Typography>
+      <Box key={_id}  >
+        <Dish idx={i} isFull={i <= rating} color='white' />
+      </Box>
     )
   }
   return (

@@ -1,30 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { FormikErrors } from 'formik';
+import React from 'react';
+import { useTheme } from '@mui/material/styles';
 
+import { BowlFullIcon, BowlEmptyIcon } from '../../images';
 import styles from './RatingsDisplay.module.scss';
 
 interface IProps {
   idx: number,
   isFull: boolean,
-  // onClick: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<IProps>>
+  width?: string,
+  color?: string,
 }
 
 export const Dish = (props: IProps) => {
-  const { idx, isFull } = props;
+  const { idx, isFull, width, color } = props;
+
+  const theme = useTheme();
 
   return (
     <div key={idx}>
       {isFull
-        ? <
-          img src="/bowl-full-2.svg"
-          alt="gomenu Logo"
-          className={styles.dish}
-        />
-        : <
-          img src="/bowl-empty.svg"
-          alt="gomenu Logo"
-          className={styles.dish}
-        />
+        ? <BowlFullIcon color={color ? color : theme.palette.primary.main} width='40' className={styles.dishFull}/>
+        : < BowlEmptyIcon color={color ? color : theme.palette.primary.main} width='40' className={styles.dishEmpty} />
       }
     </div>
   )

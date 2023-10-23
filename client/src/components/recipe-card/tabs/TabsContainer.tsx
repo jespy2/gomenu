@@ -1,5 +1,5 @@
 import React from 'react';
-import { IRecipe } from '../../../index.types';
+import { Box } from '@mui/material';
 
 import { Tab0 } from './Tab0';
 import { Tab1 } from './Tab1';
@@ -7,6 +7,9 @@ import { Tab2 } from './Tab2';
 import { Tab3 } from './Tab3';
 
 import { IInstructionStep } from '../../../index.types';
+import { IRecipe } from '../../../index.types';
+
+import styles from '../RecipeCard.module.scss';
 
 interface ITabsProps {
   recipe: IRecipe | undefined;
@@ -18,11 +21,11 @@ export const TabsContainer = (props: ITabsProps) => {
 
   const instructions = recipe?.recipeInstructions as IInstructionStep[]
   return (
-    <>
-      <Tab0 recipeIngredient={recipe?.recipeIngredient} _tab={_tab} />
-      <Tab1 instructions={instructions} _tab={_tab} />
-      <Tab2 recipe={props.recipe} _tab={_tab} />
-      <Tab3 nutrition={recipe?.nutrition} _tab={_tab} />
-    </>
+    <Box  className={styles.collapsiblePanel}>
+      <Tab0 key='ingredient_tab' recipeIngredient={recipe?.recipeIngredient} _tab={_tab} />
+      <Tab1 key='instructions_tab' instructions={instructions} _tab={_tab} />
+      <Tab2 key='details_tab' recipe={props.recipe} _tab={_tab} />
+      <Tab3 key='nutrition_tab' nutrition={recipe?.nutrition} _tab={_tab} />
+    </Box>
   )
 }

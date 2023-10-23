@@ -15,11 +15,11 @@ export const Tab3 = (props: IProps) => {
   return (    
     <TabPanel value={_tab} index={3}>
     <Box>
-      <Typography variant="body1">Nutrition:</Typography>
+      <Typography component={'span'} variant="body1">Nutrition:</Typography>
       {nutrition && Object.keys(nutrition).map((item) => (
-        <Box>
-        <Typography variant="overline" color="text.secondary">{item}</Typography>
-          <Typography variant="body2" color="text.secondary">{nutrition[item as keyof INutrition]}</Typography>
+        <Box key={item}>
+        <Typography component={'span'} variant="overline" color="text.secondary">{item}</Typography>
+          <Typography component={'span'} variant="body2" color="text.secondary">{nutrition[item as keyof INutrition]}</Typography>
         </Box>
       ))}
     </Box>      

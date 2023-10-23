@@ -16,10 +16,10 @@ export const Tab1 = (props: IProps) => {
   return (    
     <TabPanel value={_tab} index={1}>
     <Box>
-      <Typography variant="body1">Instructions:</Typography>
-      {instructions && instructions.map((step) => (
-        <Box>
-          <Typography variant="body2" color="text.secondary">{step.text}</Typography>
+      <Typography component={'span'} variant="body1">Instructions:</Typography>
+      {instructions && instructions.map((step, idx) => (
+        <Box key={`step${idx}`} >
+          <Typography component={'span'} variant="body2" color="text.secondary">{step.text}</Typography>
         </Box>
       ))}
     </Box>        

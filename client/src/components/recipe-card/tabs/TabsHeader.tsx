@@ -17,8 +17,7 @@ interface ITabsHeaderProps {
 export const TabsHeader = (props: ITabsHeaderProps) => { 
   const { _tab, handleTabClick } = props;
   return (
-    <>
-      <CardContent className={styles.collapsibleContent} >
+      <CardContent className={styles.collapsibleTabHeader} >
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={_tab} onChange={handleTabClick} aria-label="recipe tabs">
             <Tab label={<LocalGroceryStoreIcon color="primary" />} {...a11yProps(0)} sx={{minWidth: 'unset' }} />
@@ -28,6 +27,5 @@ export const TabsHeader = (props: ITabsHeaderProps) => {
           </Tabs>
         </Box>
       </CardContent>
-    </>
   )
 }

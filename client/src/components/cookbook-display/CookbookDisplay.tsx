@@ -1,17 +1,23 @@
 import React from 'react';
 import { Box, Grid } from '@mui/material'
 
-import { RecipeCard } from '../recipe-card/RecipeCard';
+import { RecipeThumbnail } from '../recipe-thumbnail/RecipeThumbnail';
 import { IRecipe } from '../../index.types';
 
 import styles from './CookbookDisplay.module.scss';
 
-export const CookbookDisplay = ({recipes}: {recipes: IRecipe[]}) => {
+interface ICookbookDisplayProps {
+  recipes: IRecipe[];
+  handleRecipeSelect: (id: string) => void;
+}
+
+export const CookbookDisplay = (props: ICookbookDisplayProps) => {
+  const { recipes, handleRecipeSelect } = props;
 
   const recipeCards = recipes.map((recipe: IRecipe) => 
-  <Grid item xs={12} md={6} lg={4}>
-    <RecipeCard recipe={recipe} />
-  </Grid>
+    <Grid key={recipe._id} item xs={12} md={6} lg={4} onClick={() => handleRecipeSelect(recipe._id as string)}>
+      <RecipeThumbnail recipe={recipe}  />
+    </Grid>
   );
 
   return (

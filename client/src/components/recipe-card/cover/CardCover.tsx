@@ -10,12 +10,13 @@ import styles from '../RecipeCard.module.scss';
 
 interface ICardCoverProps { 
   recipe: IRecipe | undefined;
-  expanded: boolean;
-  handleExpandClick: () => void;
+  expanded?: boolean;
+  handleExpandClick?: () => void;
+  thumbnail?: boolean;
 }
 
 export const CardCover = (props: ICardCoverProps) => { 
-  const { recipe, expanded, handleExpandClick } = props;
+  const { recipe, expanded, handleExpandClick, thumbnail } = props;
   const { name, description, userRating, selectedImage } = recipe as IRecipe;
 
   const rating = userRating ? userRating : 0
@@ -33,11 +34,12 @@ export const CardCover = (props: ICardCoverProps) => {
           </Box>
         </Box>
         <Box className={styles.recipeImage}>
-        <img src={selectedImage} alt={name} />
+          <img src={selectedImage} alt={name} />
         </Box>
         <Box className={styles.openTrayButton}>
-        <ExpandMore
-            expand={expanded}
+        {!thumbnail &&
+          <ExpandMore
+            expand={expanded as boolean}
             onClick={handleExpandClick}
             aria-expanded={expanded}
           aria-label="show more"
@@ -45,6 +47,7 @@ export const CardCover = (props: ICardCoverProps) => {
           >
             <ExpandMoreIcon />
           </ExpandMore>
+        }
         </Box>
       </Box>
   )

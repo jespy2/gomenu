@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Box, Container, Grid} from "@mui/material";
+import { Box, Container, Grid, Modal} from "@mui/material";
 
 import { Navbar } from "../../components/navbar/Navbar";
 import { MainDisplay } from "../../components/main-display/MainDisplay";
+// import { Modal } from "../../components/modal/Modal";
+import { CookbookDisplay } from "../../components/cookbook-display/CookbookDisplay";
+import { RecipeCard } from "../../components/recipe-card/RecipeCard";
 
 import apis from "../../api";
 import { IRecipe } from '../../index.types';
 import styles from "./Cookbook.module.scss";
-import { CookbookDisplay } from "../../components/cookbook-display/CookbookDisplay";
 
 export const Cookbook = () => {
 	const [isMounted, setIsMounted] = useState<boolean>(false);
@@ -15,6 +17,7 @@ export const Cookbook = () => {
 	const [recipe, setRecipe] = useState<IRecipe | undefined>();
 	const [allRecipes, setAllRecipes] = useState<IRecipe[] | undefined>([]);
 	const [userURL, setUserURL] = useState<string>();
+	const [showRecipeModal, setShowRecipeModal] = useState<boolean>(false);
 
 	useEffect(() => {
 			!isMounted && (async () => {
@@ -28,18 +31,29 @@ export const Cookbook = () => {
 			})();
 	}, []);
 
-	
+	const handleRecipeSelect = (id: string) => {
+		console.log("handleRecipeSelect: ", id);
+		setRecipe(allRecipes?.find((recipe) => recipe._id === id));
+		setShowRecipeModal(true);
+	}
+
+	const handleCloseModal = () => setShowRecipeModal(false);
 
 	return (
 		<Container disableGutters={true} maxWidth={false} >
-				<Grid container sx={{ height: "100%"}} columns={16} >
-					<Grid item xs={3}>
-						<Navbar />
-					</Grid>
-					<Grid item xs={13}>
-						<CookbookDisplay recipes={allRecipes ? allRecipes : []} />
-					</Grid>
+			<Grid container sx={{ height: "100%"}} columns={16} >
+				<Grid item xs={3}>
+					<Navbar />
 				</Grid>
+				<Grid item xs={13}>
+					<Modal open={showRecipeModal} onClose={handleCloseModal} >
+						<Box className={styles.cookbookModal} >
+							<RecipeCard recipe={recipe} />
+						</Box>						
+					</Modal>
+					<CookbookDisplay recipes={allRecipes ? allRecipes : []} handleRecipeSelect={handleRecipeSelect} />
+				</Grid>
+			</Grid>
 		</Container>
 	);
 };

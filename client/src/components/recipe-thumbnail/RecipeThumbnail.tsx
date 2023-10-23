@@ -1,22 +1,16 @@
 import React from 'react';
+import { Card } from '@mui/material';
+import { CardCover } from '../recipe-card/cover/CardCover';
 
 import { IRecipe } from '../../index.types';
 
 import styles from './RecipeThumbnail.module.scss';
 
-type IProps = {
-  recipe: IRecipe | undefined
-}
-
-export const RecipeThumbnail = (props: IProps) => { 
-  const recipe = props.recipe ? props.recipe : {}
-  const { name, description, image } = recipe as IRecipe;
+export const RecipeThumbnail = ({recipe}: {recipe: IRecipe}) => { 
   
   return (
-    <div className={styles.recipeThumbnail}>
-    <h2>{name}</h2>       
-          {/* <p>{description}</p> */}
-          <img className={styles.recipeImage} src={image && image[0]} alt='recipe'/>
-    </div>
+    <Card sx={{ maxWidth: 345 }}>
+      <CardCover recipe={recipe} thumbnail={true} />   
+    </Card>
   )
 };

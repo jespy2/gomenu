@@ -22,6 +22,12 @@
   box-shadow: 0 0 20px #ccc;
 }
 
+.cardContainer {
+  z-index: $z-index-modal-content;
+  overflow: visible !important;
+}
+
+
 .recipeContainer {
   display: flex;
   flex-direction: column;
@@ -142,8 +148,17 @@
   }
 }
 
-.collapsibleContent {
+.collapsibleTabHeader {
   z-index: 15;
   position: relative;
   background-color: $off-white-3;
+  width: 400px;
+}
+
+.collapsiblePanel {
+  z-index: 15;
+  position: relative;
+  background-color: $off-white-2;
+  width: 400px;
+  padding: 16px;
 }

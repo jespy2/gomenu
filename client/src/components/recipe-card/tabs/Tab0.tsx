@@ -25,10 +25,10 @@ export const Tab0 = (props: IProps) => {
             </Box>
 
             <Box>
-              <Typography variant="body1">Ingredients:</Typography>
+              <Typography component={'span'} variant="body1">Ingredients:</Typography>
               {recipeIngredient && recipeIngredient.map((item) => (
-                <Box>
-                  <Typography variant="body2" color="text.secondary">{item}</Typography>
+                <Box key={item}>
+                  <Typography component={'span'} variant="body2" color="text.secondary">{item}</Typography>
                 </Box>
               ))}
             </Box>        

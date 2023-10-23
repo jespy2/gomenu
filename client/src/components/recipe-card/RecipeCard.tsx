@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Card } from '@mui/material';
-import Collapse from '@mui/material/Collapse';
+import { Card, Collapse } from '@mui/material';
 
 import { TabsContainer } from './tabs/TabsContainer';
 import { TabsHeader } from './tabs/TabsHeader';
 import { CardCover } from './cover/CardCover';
 
 import { IProps } from './RecipeCard.config';
+
+import styles from './RecipeCard.module.scss';
 
 export const RecipeCard = (props: IProps) => { 
   const [expanded, setExpanded] = useState(false);
@@ -21,12 +22,12 @@ export const RecipeCard = (props: IProps) => {
   };
   
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card  className={styles.cardContainer} >
       <CardCover recipe={props.recipe} expanded={expanded} handleExpandClick={handleExpandClick} />   
-      <Collapse in={expanded} timeout='auto' unmountOnExit>
-          <TabsHeader handleTabClick={handleTabClick} _tab={_tab} />
-          <TabsContainer recipe={props.recipe} _tab={_tab} />
-        </Collapse>
+      <Collapse in={expanded} timeout='auto' unmountOnExit  orientation="horizontal" >
+        <TabsHeader handleTabClick={handleTabClick} _tab={_tab} />
+        <TabsContainer recipe={props.recipe} _tab={_tab} />
+      </Collapse>
     </Card>
   )
 };

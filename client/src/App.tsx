@@ -101,7 +101,7 @@ function App() {
 								}
 							/>
 							<Route path='/newrecipe' element={<NewRecipe recipe={recipe} setRecipe={setRecipe} />} />
-							{/* <Route path='/cookbook' element={<Cookbook recipe={recipe} />} /> */}
+							<Route path='/cookbook' element={<Cookbook />} />
 								<Route path='/showrecipe' element={<ShowRecipe recipe={recipe} />} />
 								<Route path='*'>{/* <NotFound /> */}</Route>
 							</Routes>

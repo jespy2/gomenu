@@ -141,3 +141,9 @@
     position: unset;
   }
 }
+
+.collapsibleContent {
+  z-index: 15;
+  position: relative;
+  background-color: $off-white-3;
+}

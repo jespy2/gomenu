@@ -38,7 +38,7 @@ export const URLSearch = (
     <h1 style={{textAlign: 'center'}}>Welcome back, username</h1>
     <Box className={styles.navbarButtonsContainer}>
       <Button variant="contained" onClick={ () => setShowSearch(!showSearch)}>Grab a new recipe</Button>
-      <Button variant="contained">Go to my cookbook</Button>
+      <Button variant="contained" onClick={() => navigate('/cookbook')} >Go to my cookbook</Button>
     </Box>
     <Box className={styles.urlSearchContainer}>
       <h2>Enter Recipe URL</h2>

@@ -6,36 +6,27 @@ import { MainDisplay } from "../../components/main-display/MainDisplay";
 
 import apis from "../../api";
 import { IRecipe } from '../../index.types';
-import { jsonldConvertor } from "../../utils/utils";
 import styles from "./Cookbook.module.scss";
+import { CookbookDisplay } from "../../components/cookbook-display/CookbookDisplay";
 
 export const Cookbook = () => {
+	const [isMounted, setIsMounted] = useState<boolean>(false);
 	const [userName, setUserName] = useState<string>('admin');
 	const [recipe, setRecipe] = useState<IRecipe | undefined>();
+	const [allRecipes, setAllRecipes] = useState<IRecipe[] | undefined>([]);
 	const [userURL, setUserURL] = useState<string>();
 
 	useEffect(() => {
-		recipe && console.log('intructions: ', recipe.recipeInstructions)
-		recipe && console.log('nutrion: ', jsonldConvertor(recipe, "nutrition"))
-		recipe && console.log('recipeCategory: ', jsonldConvertor(recipe, "recipeCategory"))
-		recipe && console.log('recipeIngredient: ', jsonldConvertor(recipe, "recipeIngredient"))
-		recipe && console.log('recipeCuisine: ', jsonldConvertor(recipe, "recipeCuisine"))
-	}, [recipe])
-
-	useEffect(() => {
-		userURL &&
-			(async () => {
-				await apis.getRecipe(userURL).then((data) => {
-					const _recipe = { ...data.data }["@graph"].find(
-						(recipe: any) => recipe["@type"] === "Recipe"
-					);
-					_recipe.userName = userName;
-					setRecipe(_recipe);
+			!isMounted && (async () => {
+			await apis.getAllRecipes()
+				.then((data) => {
+					setAllRecipes(data.data as IRecipe[]);
 					console.log("data: ", data);
-					console.log("_recipe: ", _recipe);
+					console.log("allRecipes: ", allRecipes);
+					setIsMounted(true);
 				});
 			})();
-	}, [userURL]);
+	}, []);
 
 	
 
@@ -43,10 +34,10 @@ export const Cookbook = () => {
 		<Container disableGutters={true} maxWidth={false} >
 				<Grid container sx={{ height: "100%"}} columns={16} >
 					<Grid item xs={3}>
-						{/* <Navbar setUserURL={setUserURL} /> */}
+						<Navbar />
 					</Grid>
 					<Grid item xs={13}>
-						{/* <MainDisplay recipe={recipe} handleFormSubmit={handleFormSubmit} /> */}
+						<CookbookDisplay recipes={allRecipes ? allRecipes : []} />
 					</Grid>
 				</Grid>
 		</Container>

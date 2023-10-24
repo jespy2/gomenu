@@ -44,8 +44,8 @@ export const Cookbook = () => {
 					<Navbar />
 				</Grid>
 				<Grid item xs={13}>
-					<Modal open={showRecipeModal} onClose={handleCloseModal} className={styles.cookbookModal} >
-						<Box >
+					<Modal open={showRecipeModal} onClose={handleCloseModal} >
+						<Box className={styles.cookbookModal} >
 							<RecipeCard recipe={recipe} />
 						</Box>						
 					</Modal>

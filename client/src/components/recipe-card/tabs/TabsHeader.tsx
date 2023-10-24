@@ -4,6 +4,8 @@ import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStoreTwoTone'
 import SoupKitchenIcon from '@mui/icons-material/SoupKitchenTwoTone';
 import InfoIcon from '@mui/icons-material/InfoTwoTone';
 import SquareFootIcon from '@mui/icons-material/SquareFootTwoTone';
+import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 
 import { a11yProps } from '../RecipeCard.config';
 
@@ -23,7 +25,11 @@ export const TabsHeader = (props: ITabsHeaderProps) => {
             <Tab label={<LocalGroceryStoreIcon color="primary" />} {...a11yProps(0)} sx={{minWidth: 'unset' }} />
             <Tab label={<SoupKitchenIcon color="primary" />} {...a11yProps(1)} />
             <Tab label={<SquareFootIcon color="primary" />} {...a11yProps(2)} />
-            <Tab label={<InfoIcon color="primary" />} {...a11yProps(3)} />
+          <Tab label={<InfoIcon color="primary" />} {...a11yProps(3)} />
+          <Box>
+            <DeleteForeverTwoToneIcon color="primary" />
+            <EditTwoToneIcon color="primary" />
+          </Box>
           </Tabs>
         </Box>
       </CardContent>

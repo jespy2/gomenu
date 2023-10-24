@@ -42,8 +42,8 @@ export const CardCover = (props: ICardCoverProps) => {
             expand={expanded as boolean}
             onClick={handleExpandClick}
             aria-expanded={expanded}
-          aria-label="show more"
-          className={styles.openTrayButton}
+            aria-label="show more"
+          // className={styles.openTrayButton}
           >
             <ExpandMoreIcon />
           </ExpandMore>

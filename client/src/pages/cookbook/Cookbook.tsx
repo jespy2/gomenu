@@ -13,10 +13,8 @@ import styles from "./Cookbook.module.scss";
 
 export const Cookbook = () => {
 	const [isMounted, setIsMounted] = useState<boolean>(false);
-	const [userName, setUserName] = useState<string>('admin');
 	const [recipe, setRecipe] = useState<IRecipe | undefined>();
 	const [allRecipes, setAllRecipes] = useState<IRecipe[] | undefined>([]);
-	const [userURL, setUserURL] = useState<string>();
 	const [showRecipeModal, setShowRecipeModal] = useState<boolean>(false);
 
 	useEffect(() => {
@@ -46,8 +44,8 @@ export const Cookbook = () => {
 					<Navbar />
 				</Grid>
 				<Grid item xs={13}>
-					<Modal open={showRecipeModal} onClose={handleCloseModal} >
-						<Box className={styles.cookbookModal} >
+					<Modal open={showRecipeModal} onClose={handleCloseModal} className={styles.cookbookModal} >
+						<Box >
 							<RecipeCard recipe={recipe} />
 						</Box>						
 					</Modal>

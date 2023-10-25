@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Container, Grid, Modal} from "@mui/material";
 
 import { Navbar } from "../../components/navbar/Navbar";
-import { MainDisplay } from "../../components/main-display/MainDisplay";
-// import { Modal } from "../../components/modal/Modal";
+import {Footer } from "../../components/footer/Footer";
 import { CookbookDisplay } from "../../components/cookbook-display/CookbookDisplay";
 import { RecipeCard } from "../../components/recipe-card/RecipeCard";
 
@@ -41,7 +40,9 @@ export const Cookbook = () => {
 		<Container disableGutters={true} maxWidth={false} >
 			<Grid container sx={{ height: "100%"}} columns={16} >
 				<Grid item xs={3}>
-					<Navbar />
+					<Navbar>
+						<Footer />
+					</Navbar>
 				</Grid>
 				<Grid item xs={13}>
 					<Modal open={showRecipeModal} onClose={handleCloseModal} >

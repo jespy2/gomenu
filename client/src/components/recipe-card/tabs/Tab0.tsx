@@ -11,19 +11,14 @@ import { TabPanel } from './TabPanel';
 interface IProps { 
   recipeIngredient: string[] | undefined;
   _tab: number;
+  children: JSX.Element;
 }
 
 export const Tab0 = (props: IProps) => { 
   const { recipeIngredient, _tab } = props;
   return (    
-          <TabPanel value={_tab} index={0}>
-            <Box>
-              <InfoIcon color="primary" />
-              <WatchLaterIcon color="primary" />
-              <SquareFootIcon color="primary" />
-              <SpeedIcon color="primary" />
-            </Box>
-
+    <TabPanel value={_tab} index={0}>
+      {props.children}
             <Box>
               <Typography component={'span'} variant="body1">Ingredients:</Typography>
               {recipeIngredient && recipeIngredient.map((item) => (

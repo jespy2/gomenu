@@ -8,21 +8,23 @@ import { INutrition } from '../../../index.types';
 interface IProps { 
   nutrition: INutrition | undefined;
   _tab: number;
+  children: JSX.Element;
 }
 
 export const Tab3 = (props: IProps) => { 
   const { nutrition, _tab } = props;
   return (    
     <TabPanel value={_tab} index={3}>
-    <Box>
-      <Typography component={'span'} variant="body1">Nutrition:</Typography>
-      {nutrition && Object.keys(nutrition).map((item) => (
-        <Box key={item}>
-        <Typography component={'span'} variant="overline" color="text.secondary">{item}</Typography>
-          <Typography component={'span'} variant="body2" color="text.secondary">{nutrition[item as keyof INutrition]}</Typography>
-        </Box>
-      ))}
-    </Box>      
+      {props.children}
+      <Box>
+        <Typography component={'span'} variant="body1">Nutrition:</Typography>
+          {nutrition && Object.keys(nutrition).map((item) => (
+            <Box key={item}>
+              <Typography component={'span'} variant="overline" color="text.secondary">{item}</Typography>
+                <Typography component={'span'} variant="body2" color="text.secondary">{nutrition[item as keyof INutrition]}</Typography>
+            </Box>
+          ))}
+      </Box>      
   </TabPanel> 
   )
 };

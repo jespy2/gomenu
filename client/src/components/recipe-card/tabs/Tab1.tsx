@@ -8,6 +8,7 @@ import { IInstructionStep } from '../../../index.types';
 interface IProps { 
   instructions: IInstructionStep[] | undefined;
   _tab: number;
+  children: JSX.Element;
 }
 
 export const Tab1 = (props: IProps) => { 
@@ -15,14 +16,15 @@ export const Tab1 = (props: IProps) => {
   
   return (    
     <TabPanel value={_tab} index={1}>
-    <Box>
-      <Typography component={'span'} variant="body1">Instructions:</Typography>
-      {instructions && instructions.map((step, idx) => (
-        <Box key={`step${idx}`} >
-          <Typography component={'span'} variant="body2" color="text.secondary">{step.text}</Typography>
-        </Box>
-      ))}
-    </Box>        
+      {props.children}
+      <Box>
+        <Typography component={'span'} variant="body1">Instructions:</Typography>
+        {instructions && instructions.map((step, idx) => (
+          <Box key={`step${idx}`} >
+            <Typography component={'span'} variant="body2" color="text.secondary">{step.text}</Typography>
+          </Box>
+        ))}
+      </Box>        
   </TabPanel>
   )
 };

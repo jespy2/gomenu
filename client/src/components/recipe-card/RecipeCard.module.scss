@@ -123,4 +123,11 @@
   padding: 16px;
   overflow-y: scroll;
   height: 300px;
+
+  .cardActionsMenu {
+    position: absolute;    
+    right: -20rem;
+    top: 6rem;
+    z-index: 15;
+  }
 }

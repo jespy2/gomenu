@@ -14,6 +14,7 @@ export const getAllRecipes = () => api.get(`/api/recipes`);
 export const insertRecipe = (payload: any) => api.post(`/api/recipes`, payload);
 export const updateRecipeById = (id: string, payload: any) => api.put(`api/recipes/${id}`, payload);
 export const deleteRecipeById = (id: string) => api.delete(`api/recipes/${id}`);
+export const searchCookbook = (term: string) => api.get(`api/recipes/search?term=${term}`)
 
 const apis = {
   getRecipe,
@@ -21,6 +22,7 @@ const apis = {
   insertRecipe,
   updateRecipeById,
   deleteRecipeById,
+  searchCookbook
 }
 
 export default apis

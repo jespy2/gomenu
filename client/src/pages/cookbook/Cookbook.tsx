@@ -5,31 +5,34 @@ import { Navbar } from "../../components/navbar/Navbar";
 import {Footer } from "../../components/footer/Footer";
 import { CookbookDisplay } from "../../components/cookbook-display/CookbookDisplay";
 import { RecipeCard } from "../../components/recipe-card/RecipeCard";
+import { GlobalSearch } from "../../forms/global-search/GlobalSearch";
 
-import apis from "../../api";
+import { runGetAllRecipes, runGlobalSearch } from "./Cookbook.config";
 import { IRecipe } from '../../index.types';
+
 import styles from "./Cookbook.module.scss";
+
+
 
 export const Cookbook = () => {
 	const [isMounted, setIsMounted] = useState<boolean>(false);
 	const [recipe, setRecipe] = useState<IRecipe | undefined>();
 	const [allRecipes, setAllRecipes] = useState<IRecipe[] | undefined>([]);
 	const [showRecipeModal, setShowRecipeModal] = useState<boolean>(false);
+	const [globalSearch, setGlobalSearch] = useState<string>()
+
+	
 
 	useEffect(() => {
-			!isMounted && (async () => {
-			await apis.getAllRecipes()
-				.then((data) => {
-					setAllRecipes(data.data as IRecipe[]);
-					console.log("data: ", data);
-					console.log("allRecipes: ", allRecipes);
-					setIsMounted(true);
-				});
-			})();
+		!isMounted && runGetAllRecipes({setAllRecipes, setIsMounted});
 	}, []);
+	
+	useEffect(() => {
+		globalSearch && runGlobalSearch({globalSearch, allRecipes, setAllRecipes});
+		!globalSearch && runGetAllRecipes({setAllRecipes, setIsMounted});
+	}, [globalSearch])
 
 	const handleRecipeSelect = (id: string) => {
-		console.log("handleRecipeSelect: ", id);
 		setRecipe(allRecipes?.find((recipe) => recipe._id === id));
 		setShowRecipeModal(true);
 	}
@@ -41,6 +44,7 @@ export const Cookbook = () => {
 			<Grid container sx={{ height: "100%"}} columns={16} >
 				<Grid item xs={3}>
 					<Navbar>
+						<GlobalSearch setGlobalSearch={setGlobalSearch} />
 						<Footer />
 					</Navbar>
 				</Grid>

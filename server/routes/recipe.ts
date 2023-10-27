@@ -4,7 +4,8 @@ import {
   getRecipes,
   createRecipe,
   updateRecipe,
-  deleteRecipe
+  deleteRecipe,
+  searchRecipes
 } from "../controllers/recipeController";
 
 export const recipeRouter = Router();
@@ -14,3 +15,4 @@ recipeRouter.get('/', getRecipes);
 recipeRouter.post('/', createRecipe);
 recipeRouter.put('/:id', updateRecipe);
 recipeRouter.delete('/:id', deleteRecipe);
+recipeRouter.get('/search', searchRecipes)

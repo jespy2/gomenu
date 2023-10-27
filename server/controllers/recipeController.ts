@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import { ObjectId } from 'mongodb';
 
 import { collections } from '../services/database.services';
-// import Recipe from '../models/recipe-models';
+import { Recipe } from '../models/recipe-models';
 import IRecipe from '../models/recipe-models.types';
 
 export const getRecipes = async (req: Request, res: Response) => {
@@ -66,9 +66,38 @@ export const deleteRecipe = async (req: Request, res: Response) => {
   }
 };
 
+export const searchRecipes = async (req: Request, res: Response) => {
+  const term = req.query.term;
+
+  const agg = [
+    {
+      $search: {
+        index: "searchIndex",
+        text: {
+          query: term,
+          path: {
+            wildcard: "*"
+          }
+        }
+      }
+    }
+    // {$limit: 20},
+    // {$project: {_id: 1,title: 1}}
+];
+  
+  try {
+    let result = await collections.recipes?.aggregate(agg)
+      .toArray();
+    res.status(200).send(result);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
 module.exports = {
   getRecipes,
   createRecipe,
   updateRecipe,
-  deleteRecipe
+  deleteRecipe,
+  searchRecipes
 }

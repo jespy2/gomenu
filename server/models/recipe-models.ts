@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { v4 as uuidv4, validate as uuidValidate } from "uuid";
 
-const Nutrition = new mongoose.Schema(
+const nutritionSchema = new mongoose.Schema(
   {
     schemaType: { type: String, required: false, default: 'NutritionInformation'},
     calories: { type: String, required: true},
@@ -19,7 +19,7 @@ const Nutrition = new mongoose.Schema(
   }
 )
 
-const InstructionStep = new mongoose.Schema(
+const instructionStepSchema = new mongoose.Schema(
   {
     schemaType: { type: String, required: false, default: 'HowToStep'},
     name: { type: String, required: false},
@@ -28,22 +28,22 @@ const InstructionStep = new mongoose.Schema(
   }
 )
 
-const InstructionSection = new mongoose.Schema(
+const instructionSectionSchema = new mongoose.Schema(
   {
     schemaType: { type: String, required: false, default: 'HowToSection'},
-    itemListElement: { type: [InstructionStep], required: false }
+    itemListElement: { type: [instructionStepSchema], required: false }
   }
 )
 
-const Instructions = new mongoose.Schema(
+const instructionsSchema = new mongoose.Schema(
   {
-    HowToStep: { type: [InstructionStep], required: false},
-    HowToSection: { type: [InstructionSection], required: false},
+    HowToStep: { type: [instructionStepSchema], required: false},
+    HowToSection: { type: [instructionSectionSchema], required: false},
 
   }
 )
 
-const Recipe = new mongoose.Schema(
+const recipeSchema = new mongoose.Schema(
   {
       id: { type: mongoose.Schema.Types.UUID, default: () => uuidv4(), required: true },
       schemaType: { type: String, required: false, default: 'Recipe'},
@@ -56,7 +56,7 @@ const Recipe = new mongoose.Schema(
       image: { type: [String], required: false},
       name: { type: String, required: true},
       description: { type: String, required: true},
-      nutrition: { type: Nutrition, required: false},
+      nutrition: { type: nutritionSchema, required: false},
       prepTime: { type: String, required: false},
       cookTime: { type: String, required: false},
       totalTime: { type: String, required: false},
@@ -64,9 +64,9 @@ const Recipe = new mongoose.Schema(
       recipeCategory: { type: [String], required: false},
       recipeCuisine: { type: [String], required: false},
       recipeIngredient: { type: [String], required: true},
-      recipeInstructions: { type: Instructions, required: true},
+      recipeInstructions: { type: instructionsSchema, required: true},
   },
   { timestamps: true },
 )
 
-export default mongoose.model('recipes', Recipe)
+export const Recipe = mongoose.model('Recipe', recipeSchema)

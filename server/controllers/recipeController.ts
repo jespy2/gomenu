@@ -73,21 +73,36 @@ export const searchRecipes = async (req: Request, res: Response) => {
     {
       $search: {
         index: "searchIndex",
-        text: {
-          query: term,
-          path: {
-            wildcard: "*"
-          }
+        compound: {
+          should: [
+            {
+              autocomplete: {
+              query: term,
+              path: "description"
+              }
+            },
+            {
+              autocomplete: {
+              query: term,
+              path: "name"
+              }
+            },
+            {
+              autocomplete: {
+              query: term,
+              path: "recipeInstructions.text"
+              }
+            },
+          ]
         }
       }
     }
-    // {$limit: 20},
-    // {$project: {_id: 1,title: 1}}
-];
+  ];
   
   try {
     let result = await collections.recipes?.aggregate(agg)
       .toArray();
+    console.log('result: ', result)
     res.status(200).send(result);
   } catch (error) {
     res.status(500).send(error.message);

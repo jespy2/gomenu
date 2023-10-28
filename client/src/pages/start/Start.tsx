@@ -8,6 +8,7 @@ import { URLSearch } from "../../forms/url-search/URLSearch";
 import apis from "../../api";
 
 import styles from "./Start.module.scss";
+import { IRecipe } from "../../index.types";
 
 interface IProps {
 	userURL: string | undefined;
@@ -26,8 +27,11 @@ export const Start = (props: IProps) => {
 			(async () => {
 				await apis.getRecipe(userURL)
 					.then((data) => {
-						const _recipe = { ...data.data }["@graph"].find(
-							(recipe: any) => recipe["@type"] === "Recipe"
+						console.log('data: ', data)
+						let _recipe = {} as IRecipe
+						if (data.data.length === 1){ _recipe = data.data[0]}
+						else _recipe = { ...data.data }["@graph"].find(
+							(recipe: any) => recipe["@type"].includes("Recipe")
 						);
 						_recipe.userName = userName;
 						setRecipe(_recipe);

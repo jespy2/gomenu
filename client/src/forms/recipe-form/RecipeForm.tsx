@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { Step1, Step2, Step3, Step4, Step5, Step6 } from "./steps";
 
 import apis from "../../api";
-import { initVals } from "./RecipeForm.config";
+import { initVals, imageFinder } from "./RecipeForm.config";
 import { IRecipe, CookingMethod } from "../../index.types";
 
 import styles from "./RecipeForm.module.scss";
@@ -19,12 +19,13 @@ interface IProps {
 
 export const RecipeForm = (props: IProps) => {
 	const { recipe, setRecipe } = props;
+
+	
+	imageFinder(recipe?.image)
 	const [newRecipe, setNewRecipe] = useState<IRecipe>({
 		_id: undefined,
 		userName: recipe?.userName || "",
-		selectedImage: Array.isArray(recipe?.image)
-			? recipe?.image[0]
-			: recipe?.image,
+		selectedImage: imageFinder(recipe?.image),
 		cookingMethod: [CookingMethod.none],
 		userRating: 0,
 		userComments: "",

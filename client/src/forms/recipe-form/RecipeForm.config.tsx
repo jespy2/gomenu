@@ -14,6 +14,14 @@ interface ICurrValue {
 	currValue: number;
 }
 
+export const imageFinder = (imagePath: any) => {
+	let _path: string;
+	if (imagePath?.url){ _path = imagePath.url}
+	else if (Array.isArray(imagePath)) { _path = imagePath[0] }
+	else (_path = imagePath)
+	return _path
+}
+
 export const cookingmethods = Object.keys(CookingMethod);
 
 export const initVals = {

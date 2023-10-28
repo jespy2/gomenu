@@ -2,6 +2,7 @@ import React, { ChangeEvent, FormEventHandler } from 'react';
 import { Box, Button, TextField, TextFieldVariants } from '@mui/material';
 
 interface ISearchProps {
+  title: string;
   label: string;
   id: string;
   variant: TextFieldVariants;
@@ -12,13 +13,13 @@ interface ISearchProps {
 }
 
 export const Search = (props: ISearchProps) => {
-  const { label, id, variant, helperText, value, handleChange, handleSubmit } = props;
+  const { title, label, id, variant, helperText, value, handleChange, handleSubmit } = props;
 
   return (
     <Box
       // className={styles.urlSearchContainer}
     >
-      <h2>Enter Recipe URL</h2>
+      <h2>{title}</h2>
       <form onSubmit={handleSubmit}>
         <TextField
           label={label}

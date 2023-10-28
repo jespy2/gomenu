@@ -31,10 +31,11 @@ export const GlobalSearch = (props: IGlobalSearchProps) => {
 	return (
 		<Box>
       <Search
+        title="Search your recipes"
         label="Search"
         id="global_search"
         variant="standard"
-        helperText='Enter a URL from a recipe on a website'
+        helperText='Enter a search term'
         value={_searchTerm}
         handleChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
         handleSubmit={handleSubmit}

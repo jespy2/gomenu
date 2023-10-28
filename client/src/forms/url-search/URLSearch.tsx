@@ -21,6 +21,7 @@ export const URLSearch = (
   return (
     <Box>
       <Search
+        title="Paste webpage to add recipe"
         label="Your URL"
         id="user_url"
         variant="standard"

@@ -1,10 +1,9 @@
 import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Container, Grid} from "@mui/material";
+import { Box, Button, Container} from "@mui/material";
 
 import { Navbar } from "../../components/navbar/Navbar";
 import { URLSearch } from "../../forms/url-search/URLSearch";
-import { MainDisplay } from "../../components/main-display/MainDisplay";
 
 import apis from "../../api";
 
@@ -19,6 +18,7 @@ interface IProps {
 
 export const Start = (props: IProps) => {
 	const { userURL, setUserURL, setRecipe, userName } = props;
+  const [showSearch, setShowSearch] = React.useState<boolean>(false);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -43,7 +43,14 @@ export const Start = (props: IProps) => {
 				<Box className={styles.startContainer} >
 					<Box className={styles.navbarContainer}>
 						<Navbar>
-							<URLSearch setUserURL={setUserURL} />
+							<Container disableGutters={true} maxWidth={false} >
+								<h1 style={{textAlign: 'center'}}>Welcome back, username</h1>
+								<Box className={styles.navbarButtonsContainer}>
+									<Button variant="contained" onClick={ () => setShowSearch(!showSearch)}>Grab a new recipe</Button>
+									<Button variant="contained" onClick={() => navigate('/cookbook')} >Go to my cookbook</Button>
+								</Box>
+								{showSearch && <URLSearch setUserURL={setUserURL} />}
+							</Container>							
 						</Navbar>
 					</Box>
 				</Box>

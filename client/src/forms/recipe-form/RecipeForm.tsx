@@ -64,7 +64,7 @@ export const RecipeForm = (props: IProps) => {
 			})
 			.then(() => setRecipe({...values}))
 			.then(() => setNewRecipe({...values}))
-			.then(() => navigate('/showrecipe'))
+			.then(() => navigate('/cookbook'))
 	}
 
 	const handleNextStep = () => {
